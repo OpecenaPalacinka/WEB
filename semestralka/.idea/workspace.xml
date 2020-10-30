@@ -20,10 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f46dddf-cb61-4bbe-918e-d4f5c870c90d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/code/carousel.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/registrace.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/code/cenik.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/code/cenik.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/code/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/code/oNas.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/code/signin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/carousel.css" beforeDir="false" afterPath="$PROJECT_DIR$/code/carousel.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/registrace.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/objednavka.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +41,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="HTML File" />
       </list>
     </option>
@@ -55,13 +61,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/code" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Pelikán\Desktop\3. Semestr\WEB\semestralka\code" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Pelikán\Desktop\3.Semestr\WEB\semestralka\code" />
       <recent name="C:\Users\Pelikán\Desktop\3. Semestr\WEB\semestralka\code" />
     </key>
   </component>
@@ -74,7 +83,10 @@
       <option name="presentableId" value="Default" />
       <updated>1603396073083</updated>
       <workItem from="1603396076758" duration="2208000" />
-      <workItem from="1603466323597" duration="11848000" />
+      <workItem from="1603466323597" duration="13096000" />
+      <workItem from="1603904910692" duration="827000" />
+      <workItem from="1603909357868" duration="1537000" />
+      <workItem from="1603975605780" duration="25862000" />
     </task>
     <servers />
   </component>
@@ -94,9 +106,21 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="554" y="203" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603396163112">
+    <state x="680" y="234" key="#CLI_Interpreters" timestamp="1603909573308">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="554" y="203" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603396163112" />
+    <state x="680" y="234" key="#CLI_Interpreters/0.0.1920.1040@0.0.1920.1040" timestamp="1603909573308" />
+    <state x="807" y="222" key="#PHP" timestamp="1603909574799">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="807" y="222" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1603909574799" />
+    <state x="554" y="203" width="1092" height="752" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603909575833">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="554" y="203" width="1092" height="752" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603909575833" />
+    <state x="803" y="179" key="SettingsEditor" timestamp="1603906233339">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="803" y="179" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603906233339" />
   </component>
 </project>

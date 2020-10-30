@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="npm-ukazka/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="npm-ukazka/node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="npm-ukazka/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="npm-ukazka/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="npm-ukazka/node_modules/font-awesome/css/font-awesome.min.css">
+    <title>Půjčovna lodí</title>
+</head>
+
+<body class="bg-light">
+
+<div class="d-flex navbar bg-white border-bottom shadow-sm navbar-dark sticky-top">
+    <a href="index.html"><h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5></a>
+    <nav class="navbar-expand-md">
+        <button class="navbar-toggler bg-dark justify-content-around" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <div class="navbar-nav">
+                <a class="p-2 text-dark" href="oNas.html">O nás</a>
+                <a class="p-2 text-dark" href="objednavka.html">Rezervace</a>
+                <a class="p-2 text-dark" href="cenik.html">Ceník</a>
+                <a class="p-2 text-dark" href="#">Pricing</a>
+                <a class="btn btn-outline-primary " href="login.html">Sign up</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h2>Checkout form</h2>
+        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Your cart</span>
+                <span class="badge badge-secondary badge-pill">3</span>
+            </h4>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Product name</h6>
+                        <small class="text-muted">Brief description</small>
+                    </div>
+                    <span class="text-muted">$12</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Second product</h6>
+                        <small class="text-muted">Brief description</small>
+                    </div>
+                    <span class="text-muted">$8</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Third item</h6>
+                        <small class="text-muted">Brief description</small>
+                    </div>
+                    <span class="text-muted">$5</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (USD)</span>
+                    <strong>$20</strong>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Billing address</h4>
+            <form class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">Křestní jméno</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Zadejte vaše křestní jméno.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Příjmení</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Zadejte vaše příjmení.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Adresa</label>
+                    <input type="text" class="form-control" id="address" placeholder="Komenského 34" required>
+                    <div class="invalid-feedback">
+                        Prosím zadejte vaši adresu
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Email <span class="text-muted">(Volitelný)</span></label>
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                    <div class="invalid-feedback">
+                        Prosím zadejte váš validní email.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="username">Telefon</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="username" placeholder="777 924 403" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Vaše telefonní číslo je povinné.
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" row">
+                    <div class="col-md-3 mb-3">
+                        <label for="zip">PSČ</label>
+                        <input type="text" class="form-control" id="zip" placeholder="" required>
+                        <div class="invalid-feedback">
+                            Zadejte PSČ!
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+
+                <div class="row text-center d-flex justify-content-around">
+                <div class="form-group pl-3">
+                <label for="dat-vyp" class="col-form-label">Datum vypůjčení</label>
+                    <input type="date" class="form-control" name="dat-vyp" id="dat-vyp" required>
+                </div>
+                <div class="form-group pl-3">
+                <label for="dat-vra" class="col-form-label">Datum vrácení</label>
+                    <input type="date" class="form-control" name="dat-vra" id="dat-vra" required>
+                </div>
+                </div>
+                <br>
+
+                <div class="form-group row">
+                <label class="col-form-label col-sm-3" for="lod1">Samba 2-m</label>
+                    <input type="number" class="form-control col-sm-2" name="lod1" id="lod1" min="0" value="0">
+                <span class="col-sm-2"></span>
+                <label class="col-form-label col-sm-3" for="padlo1">Počet pádel k lodi</label>
+                    <input type="number" class="form-control col-sm-2" name="padlo1" id="padlo1" min="0" value="0">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="lod2">Samba 3-m</label>
+                    <input type="number" class="form-control col-sm-2" name="lod1" id="lod2" min="0" value="0">
+                    <span class="col-sm-2"></span>
+                    <label class="col-form-label col-sm-3" for="padlo2">Počet pádel k lodi</label>
+                    <input type="number" class="form-control col-sm-2" name="padlo1" id="padlo2" min="0" value="0">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="lod3">Colorado 4-m</label>
+                    <input type="number" class="form-control col-sm-2" name="lod1" id="lod3" min="0" value="0">
+                    <span class="col-sm-2"></span>
+                    <label class="col-form-label col-sm-3" for="padlo3">Počet pádel k lodi</label>
+                    <input type="number" class="form-control col-sm-2" name="padlo1" id="padlo3" min="0" value="0">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="lod4">Colorado 6-m</label>
+                    <input type="number" class="form-control col-sm-2" name="lod4" id="lod4" min="0" value="0">
+                    <span class="col-sm-2"></span>
+                    <label class="col-form-label col-sm-3" for="padlo4">Počet pádel k lodi</label>
+                    <input type="number" class="form-control col-sm-2" name="padlo1" id="padlo4" min="0" value="0">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="lod5">Kajak</label>
+                    <input type="number" class="form-control col-sm-2" name="lod5" id="lod5" min="0" value="0">
+                    <span class="col-sm-2"></span>
+                    <label class="col-form-label col-sm-3" for="padlo5">Počet pádel k lodi</label>
+                    <input type="number" class="form-control col-sm-2" name="padlo5" id="padlo5" min="0" value="0">
+                </div>
+                <br>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="vesta-dosp">Počet vest - dospělý</label>
+                    <input type="number" class="form-control col-sm-2" name="vesta-dosp" id="vesta-dosp" min="0" value="0">
+                    <span class="col-sm-2"></span>
+                    <label class="col-form-label col-sm-3" for="vesta-dite">Počet vest - dítě</label>
+                    <input type="number" class="form-control col-sm-2" name="vesta-dite" id="vesta-dite" min="0" value="0">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="barel">Barel</label>
+                    <input type="number" class="form-control col-sm-2" name="barel" id="barel" min="0" value="0">
+                    <span class="col-sm-2"></span>
+                    <label class="col-form-label col-sm-3" for="pumpa">Pumpa k raftu</label>
+                    <input type="number" class="form-control col-sm-2" name="pumpa" id="pumpa" min="0" value="0">
+                </div>
+                <div class="form-group row">
+                <label class="col-form-label col-sm-6" for="reka">Vyberte řeku, kterou chcete sjíždět</label>
+                    <input class="form-control col-sm-6" name="reka" id="reka" list="reky" required>
+                    <datalist id="reky">
+                        <option>Vltava</option>
+                        <option>Morava</option>
+                        <option>Labe</option>
+                        <option>Berounka</option>
+                        <option>Ohře</option>
+                        <option>Dyje</option>
+                        <option>Sázava</option>
+                        <option>Lužnice</option>
+                        <option>Otava</option>
+                        <option>Mže</option>
+                    </datalist>
+               </div>
+                <hr class="mb-2">
+            </form>
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2017-2020 Company Name</p>
+    </footer>
+</div>
+
+</body>
+</html>
