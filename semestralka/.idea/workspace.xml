@@ -20,15 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f46dddf-cb61-4bbe-918e-d4f5c870c90d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/code/cenik.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/cenik.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/oNas.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/signin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/carousel.css" beforeDir="false" afterPath="$PROJECT_DIR$/code/carousel.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/registrace.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/objednavka.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +79,8 @@
       <workItem from="1603466323597" duration="13096000" />
       <workItem from="1603904910692" duration="827000" />
       <workItem from="1603909357868" duration="1537000" />
-      <workItem from="1603975605780" duration="25862000" />
+      <workItem from="1603975605780" duration="34485000" />
+      <workItem from="1605173598255" duration="169000" />
     </task>
     <servers />
   </component>
@@ -118,9 +112,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="554" y="203" width="1092" height="752" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603909575833" />
+    <state x="1012" y="275" key="FileChooserDialogImpl" timestamp="1604426005837">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1012" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604426005837" />
     <state x="803" y="179" key="SettingsEditor" timestamp="1603906233339">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="803" y="179" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603906233339" />
+    <state x="804" y="0" width="1132" height="979" key="dock-window-1" timestamp="1604953720755">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="804" y="0" width="1132" height="979" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1604953720755" />
   </component>
 </project>
