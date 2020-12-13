@@ -1,56 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+global $tplData;
 
-    <link rel="apple-touch-icon" sizes="180x180" href="../image/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../image/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../image/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../image/favicon/site.webmanifest">
-    <link rel="mask-icon" href="../image/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="../image/favicon/favicon.ico">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="../image/favicon/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
+// pripojim objekt pro vypis hlavicky a paticky HTML
+require("zakladHTML.class.php");
+$tplHeaders = new zakladHTML();
 
-    <script src="npm-ukazka/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="npm-ukazka/node_modules/popper.js/dist/popper.min.js"></script>
-    <script src="npm-ukazka/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+$tplHeaders->createHeader("","Půjčovna lodí");
+?>
 
-    <link rel="stylesheet" href="npm-ukazka/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="npm-ukazka/node_modules/font-awesome/css/font-awesome.min.css">
-    <title>Půjčovna lodí</title>
-</head>
-
-<body class="bg-light">
-
-<div class="d-flex navbar bg-white border-bottom shadow-sm navbar-dark sticky-top">
-    <a href="index.html"><h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5></a>
-    <nav class="navbar-expand-md">
-        <button class="navbar-toggler bg-dark justify-content-around" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <div class="navbar-nav">
-                <a class="p-2 text-dark" href="oNas.html">O nás</a>
-                <a class="p-2 text-dark" href="objednavka.html">Rezervace</a>
-                <a class="p-2 text-dark" href="cenik.html">Ceník</a>
-                <a class="p-2 text-dark" href="#">Pricing</a>
-                <a class="btn btn-outline-primary " href="login.html">Sign up</a>
-            </div>
-        </div>
-    </nav>
-</div>
+<body>
+<?php
+$tplHeaders->createNav();
+?>
 
 
 <div class="container">
     <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h2>Checkout form</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+        <i class="fas fa-water" style="font-size: xxx-large;color: #3b3be2"></i>
+        <h2>Rezervace lodi/í</h2>
+        <p class="lead">Při úspěšné rezervaci budete registrování do naší databáze pokud ještě nejste.
+        Pokud již máte váš účet, přihlašte se nebo vyplntě vaše přihlašovací údaje.</p>
     </div>
 
+
+    <!--------- Nákupní vozík ----------->
     <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -88,61 +61,6 @@
 
 
         <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">Billing address</h4>
-            <form class="needs-validation" novalidate>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="firstName">Křestní jméno</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                        <div class="invalid-feedback">
-                            Zadejte vaše křestní jméno.
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="lastName">Příjmení</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                        <div class="invalid-feedback">
-                            Zadejte vaše příjmení.
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="address">Adresa</label>
-                    <input type="text" class="form-control" id="address" placeholder="Komenského 34" required>
-                    <div class="invalid-feedback">
-                        Prosím zadejte vaši adresu
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email">Email <span class="text-muted">(Volitelný)</span></label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                    <div class="invalid-feedback">
-                        Prosím zadejte váš validní email.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="username">Telefon</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="username" placeholder="777 924 403" required>
-                        <div class="invalid-feedback" style="width: 100%;">
-                            Vaše telefonní číslo je povinné.
-                        </div>
-                    </div>
-                </div>
-
-                <div class=" row">
-                    <div class="col-md-3 mb-3">
-                        <label for="zip">PSČ</label>
-                        <input type="text" class="form-control" id="zip" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Zadejte PSČ!
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="mb-4">
 
                 <div class="row text-center d-flex justify-content-around">
                 <div class="form-group pl-3">
@@ -210,27 +128,53 @@
                 <label class="col-form-label col-sm-6" for="reka">Vyberte řeku, kterou chcete sjíždět</label>
                     <input class="form-control col-sm-6" name="reka" id="reka" list="reky" required>
                     <datalist id="reky">
-                        <option>Vltava</option>
-                        <option>Morava</option>
-                        <option>Labe</option>
-                        <option>Berounka</option>
-                        <option>Ohře</option>
-                        <option>Dyje</option>
-                        <option>Sázava</option>
-                        <option>Lužnice</option>
-                        <option>Otava</option>
-                        <option>Mže</option>
+                        <?php
+                        $reky = $tplData['reky'];
+                        foreach ($reky as $reka){ ?>
+                        <option><?php echo $reka['nazev']?></option>
+                        <?php } ?>
                     </datalist>
                </div>
-                <hr class="mb-2">
+
+            <hr class="mb-4">
+
+            <h4 class="mb-3">Uživatelské údaje</h4>
+                <form class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName">Uživatelské jméno</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                            <div class="invalid-feedback">
+                                Zadejte vaše uživatelské jméno.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName">Heslo</label>
+                            <input type="password" class="form-control" id="lastName" placeholder="" value="" required>
+                            <div class="invalid-feedback">
+                                Zadejte vaše heslo.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                        <div class="invalid-feedback">
+                            Prosím zadejte váš validní email.
+                        </div>
+                    </div>
+                <hr class="mb-4">
+                <div class="row justify-content-center">
+                <button class="btn btn-lg btn-primary font-weight-bold" type="submit">Rezervuj ihned</button>
+                </div>
             </form>
         </div>
     </div>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2017-2020 Company Name</p>
+        <p class="mb-1">&copy; 2017-2020 Půjčovna lodí</p>
     </footer>
 </div>
 
 </body>
-</html>

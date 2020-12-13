@@ -44,10 +44,11 @@
 }
 
 footer{
+  background-color: #dcdcdc;
   font-size: 0.8rem;
-  padding-top: -10px;
 
   display: flex;
   align-items: center;
+
 }
 
