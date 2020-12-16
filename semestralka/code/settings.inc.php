@@ -16,6 +16,8 @@
     define("TABLE_PRAVA","prava");
     define("TABLE_LODE","lode");
     define("TABLE_OBJEDNAVKA","objednavka");
+    define("TABLE_OBJEDNAVKA_LODE","objednavky_lodi");
+    define("TABLE_POMOCNA_PRISLUSENSTVI","pomocna_prislusenstvi");
     define("TABLE_PRISLUSENSTVI","prislusenstvi");
     define("TABLE_REKY","reky");
 
@@ -93,6 +95,16 @@ const WEB_PAGES = array(
         "class_name" => "CenikController",
     ),
     //// KONEC: Uvodni stranka ////
+
+    //// Objednávky ////
+    "objednavky" => array(
+        "title" => "Objednávky",
+
+        //// kontroler
+        "file_name" => "objednavkyController.class.php",
+        "class_name" => "objednavkyController",
+    ),
+    //// KONEC: Objednávky ////
 );
 
 

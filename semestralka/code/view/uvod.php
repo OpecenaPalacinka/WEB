@@ -5,12 +5,16 @@ global $tplData;
 require("zakladHTML.class.php");
 $tplHeaders = new zakladHTML();
 
-$tplHeaders->createHeader("Styles/carousel.css","Půjčovna lodí");
+$tplHeaders->createHeader("Styles/carousel.css",$tplData['title']);
 ?>
 
 <body>
 <?php
-$tplHeaders->createNav();
+if (!$tplData['userLogged']) {
+    $tplHeaders->createNav($tplData['pravo']);
+} else {
+    $tplHeaders->createNav($tplData['pravo'],"odhlaseni");
+}
 ?>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -26,7 +30,7 @@ $tplHeaders->createNav();
                     <div class="carousel-caption text-left">
                         <h1>Zarezervujte si loď.</h1>
                         <p class="highlight">Zarezervujte si loď ještě dnes a zažijte nejlepší dobrodružství na vlnách s naší půjčovnou! Půjčujeme na více než 5 řekách.</p>
-                        <p><a class="btn btn-lg btn-primary" href="objednavka.php" role="button">Rezervuj teď</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="index.php?page=objednavka" role="button">Rezervuj teď</a></p>
                     </div>
                 </div>
             </div>
@@ -48,7 +52,7 @@ $tplHeaders->createNav();
                     <div class="carousel-caption text-right text-dark">
                         <h1 class="font-weight-bolder">Staňte se jedním z nás</h1>
                         <p class="highlight font-weight-bold">Založte si účet u naší půjčovny a mějte tak nové informace u sebe jako první. Ulehčí Vám to také vyplňování rezervace.</p>
-                        <p><a class="btn btn-lg btn-primary" href="registrace.php" role="button">Založte si účet</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="index.php?page=registrace" role="button">Založte si účet</a></p>
                     </div>
                 </div>
             </div>

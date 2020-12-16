@@ -9,6 +9,10 @@ class uvodController implements IController {
 
     /** @var MyDatabase $db  Sprava databaze. */
     private $db;
+    /**
+     * @var userManage
+     */
+    private $user;
 
     /**
      * Inicializace pripojeni k databazi.
@@ -17,6 +21,8 @@ class uvodController implements IController {
         // inicializace prace s DB
         require_once (DIRECTORY_MODELS ."/MyDatabase.class.php");
         $this->db = new MyDatabase();
+        require_once (DIRECTORY_MODELS ."/userManage.php");
+        $this->user = new userManage();
     }
 
     /**
@@ -30,6 +36,19 @@ class uvodController implements IController {
         $tplData = [];
         // nazev
         $tplData['title'] = $pageTitle;
+
+        if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
+            $this->user->userLogout();
+        }
+
+        $tplData['userLogged'] = $this->user->isUserLogged();
+
+        if($tplData['userLogged']){
+            $user = $this->user->getLoggedUserData();
+            $tplData['pravo'] = $user['PRAVA_id_prava'];
+        } else {
+            $tplData['pravo'] = 10;
+        }
 
         //// vypsani prislusne sablony
         // zapnu output buffer pro odchyceni vypisu sablony

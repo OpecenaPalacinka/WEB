@@ -5,12 +5,16 @@ global $tplData;
 require("zakladHTML.class.php");
 $tplHeaders = new zakladHTML();
 
-$tplHeaders->createHeader("Styles/cenik.css","Půjčovna lodí");
+$tplHeaders->createHeader("Styles/cenik.css",$tplData['title']);
 ?>
 
 <body>
 <?php
-$tplHeaders->createNav();
+if (!$tplData['userLogged']) {
+    $tplHeaders->createNav($tplData['pravo']);
+} else {
+    $tplHeaders->createNav($tplData['pravo'],"odhlaseni");
+}
 ?>
 <div class="background">
 

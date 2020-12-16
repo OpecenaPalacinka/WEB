@@ -2,8 +2,10 @@
 // nactu rozhrani kontroleru
 require_once(DIRECTORY_CONTROLLERS."/IController.interface.php");
 
-class registraceController
-{
+/**
+ * Ovladac zajistujici vypsani stranky se spravou uzivatelu.
+ */
+class objednavkyController implements IController {
 
     /** @var MyDatabase $db  Sprava databaze. */
     private $db;
@@ -24,7 +26,7 @@ class registraceController
     }
 
     /**
-     * Vrati obsah uvodni stranky.
+     * Vrati obsah stranky se spravou uzivatelu.
      * @param string $pageTitle     Nazev stranky.
      * @return string               Vypis v sablone.
      */
@@ -48,28 +50,11 @@ class registraceController
             $tplData['pravo'] = 10;
         }
 
-        if (isset($_POST['registruj']) and isset($_POST['email']) and
-            isset($_POST['password']) and isset($_POST['username']) and
-            $_POST['registruj'] == "registruj"){
-
-            $email = htmlspecialchars($_POST['email']);
-            $heslo = htmlspecialchars($_POST['password']);
-            $username = htmlspecialchars($_POST['username']);
-            $isRegistered = $this->db->getAUser($email);
-            if(!count($isRegistered)){
-                $tplData['povedloSe'] = $this->db->registrujUzivatele($email,$username,$heslo);
-                $tplData['login'] = "Registrace se zdařila! Vítejte ".$username;
-            } else {
-                $tplData['povedloSe'] = false;
-                $tplData['login'] = "Je mi líto, ale registrace se nezdařila. Nejspíše už je tento email použit.";
-            }
-        }
-
         //// vypsani prislusne sablony
         // zapnu output buffer pro odchyceni vypisu sablony
         ob_start();
         // pripojim sablonu, cimz ji i vykonam
-        require(DIRECTORY_VIEWS ."/registrace.php");
+        require(DIRECTORY_VIEWS ."/objednavky.php");
         // ziskam obsah output bufferu, tj. vypsanou sablonu
         $obsah = ob_get_clean();
 
@@ -78,4 +63,5 @@ class registraceController
     }
 
 }
+
 ?>

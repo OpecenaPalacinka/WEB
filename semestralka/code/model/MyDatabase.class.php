@@ -11,13 +11,6 @@ class MyDatabase {
     /** @var PDO $pdo  PDO objekt pro praci s databazi. */
     private $pdo;
 
-    /** @var MySession $mySession  Vlastni objekt pro spravu session. */
-    private $mySession;
-
-    /** @var string $userSessionKey  Klicem pro data uzivatele, ktera jsou ulozena v session. */
-    private $userSessionKey = "current_user_id";
-
-
     /**
      * MyDatabase constructor.
      * Inicializace pripojeni k databazi a pokud ma byt spravovano prihlaseni uzivatele,
@@ -29,10 +22,6 @@ class MyDatabase {
         // inicialilzuju pripojeni k databazi - informace beru ze settings
         $this->pdo = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USER, DB_PASS);
         $this->pdo->exec("set names utf8");
-        // inicializuju objekt pro praci se session - pouzito pro spravu prihlaseni uzivatele
-        // pozn.: v samostatne praci vytvorte pro spravu prihlaseni uzivatele samostatnou tridu.
-        require_once("MySessions.class.php");
-        $this->mySession = new MySession();
     }
 
 
@@ -183,35 +172,96 @@ class MyDatabase {
         return $reky;
     }
 
-
     /**
-     * Ziskani konkretniho prava uzivatele dle ID prava.
+     * Ziskani zaznamu vsech lodí z aplikace.
      *
-     * @param int $id       ID prava.
-     * @return array        Data nalezeneho prava.
+     * @return array    Pole se vsemi loděmi.
      */
-    public function getRightById(int $id){
-        // ziskam pravo dle ID
-        $rights = $this->selectFromTable(TABLE_PRAVA, "id_pravo=$id");
-        if(empty($rights)){
-            return null;
+    public function getAUser($email){
+        // ziskam vsechny uzivatele z DB razene dle ID a vratim je
+        $q = "SELECT * FROM ".TABLE_USER
+            ." WHERE email=:uEmail;";
+        $user = $this->pdo->prepare($q);
+        $user->bindValue(":uEmail",$email);
+        if($user->execute()){
+            return $user->fetchAll();
         } else {
-            // vracim prvni nalezene pravo
-            return $rights[0];
+            return null;
         }
     }
 
+    public function getExactReka($jmenoReky){
+        $reka = $this->selectFromTable(TABLE_REKY, "nazev='$jmenoReky'");
+        return $reka[0];
+    }
+
+    public function vytvorObjednavku($id,$datumVyberu,$id_user,$id_reky,$datumVraceni,$schvalena=0): bool
+    {
+
+        $q = "INSERT INTO ".TABLE_OBJEDNAVKA." (id_objednavky,datum_vytvoreni,USER_id_user,REKY_id_reky,schvalena,datum_vraceni) 
+        VALUES (:idObj,:datumVyberu, :ID_User, :ID_Reky,:schvalena,:datumVraceni);";
+        $vystup = $this->pdo->prepare($q);
+
+        $vystup->bindValue(":idObj", $id);
+        $vystup->bindValue(":datumVyberu", $datumVyberu);
+        $vystup->bindValue(":ID_User", $id_user);
+        $vystup->bindValue(":ID_Reky", $id_reky);
+        $vystup->bindValue(":schvalena", $schvalena);
+        $vystup->bindValue(":datumVraceni", $datumVraceni);
+
+        if($vystup->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function pridejPrislusenstvi($idPrislu,$idObj,$pocet){
+
+        $q = "INSERT INTO ".TABLE_POMOCNA_PRISLUSENSTVI." (PRISLUSENSTVI_id_prislusenstvi,OBJEDNAVKA_id_objednavky,pocet) 
+        VALUES (:idPrislu,:idObj,:pocet);";
+        $vystup = $this->pdo->prepare($q);
+
+        $vystup->bindValue(":idPrislu", $idPrislu);
+        $vystup->bindValue(":idObj", $idObj);
+        $vystup->bindValue(":pocet", $pocet);
+
+        if($vystup->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function pridejLod($idlod,$idObj,$pocet){
+
+        $q = "INSERT INTO ".TABLE_OBJEDNAVKA_LODE." (LODE_id_lod,OBJEDNAVKA_id_objednavky,pocet) 
+        VALUES (:idLod,:idObj,:pocet);";
+        $vystup = $this->pdo->prepare($q);
+
+        $vystup->bindValue(":idLod", $idlod);
+        $vystup->bindValue(":idObj", $idObj);
+        $vystup->bindValue(":pocet", $pocet);
+
+        if($vystup->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     /**
      * Nalezne uzivatele s danym loginem a heslem a vrati je.
-     * @param $username
+     * @param $email
      * @param $password
      * @return mixed
      */
-    public function vratUzivatele($username, $password){
+    public function vratUzivatele($email, $password){
 
-        $q = "SELECT * FROM ".TABLE_USER." WHERE username=:uLogin AND password=:uHeslo;";
+        $q = "SELECT * FROM ".TABLE_USER." WHERE email=:uLogin AND password=:uHeslo;";
         $vystup = $this->pdo->prepare($q);
-        $vystup->bindValue(":uLogin", $username);
+        $vystup->bindValue(":uLogin", $email);
         $vystup->bindValue(":uHeslo", $password);
         if($vystup->execute()){
             // dotaz probehl v poradku
@@ -231,21 +281,22 @@ class MyDatabase {
      * @param $username
      * @param $password
      */
-    public function registrujUzivatele($email, $username, $password){
+    public function registrujUzivatele($email, $username, $password): bool
+    {
 
         $email = htmlspecialchars($email);
         $username = htmlspecialchars($username);
         $password = htmlspecialchars($password);
 
         // zjistim, zda ho uz nemam v DB
-        $uzivatel = $this->vratUzivatele($username,$password);
+        $uzivatel = $this->vratUzivatele($email,$password);
 
         // mohu uzivatele vlozit do DB?
         if(!isset($uzivatel) || count($uzivatel)==0){
 
             /////// START: Osetreni SQL Injection ////////////
             // vykonani SQL dotazu vyuzitim predpripaveneho dotazu
-            $q = "INSERT INTO ".TABLE_USER." (email, username, password) VALUES (:email, :login, :heslo);";
+            $q = "INSERT INTO ".TABLE_USER." (id_user,email,username,password,PRAVA_id_prava) VALUES (NULL,:email, :login, :heslo,3);";
             $vystup = $this->pdo->prepare($q);
             $vystup->bindValue(":email", $email);
             $vystup->bindValue(":login", $username);
@@ -253,14 +304,13 @@ class MyDatabase {
 
             if($vystup->execute()){
                 // dotaz probehl v poradku
-                echo "Registrován nový uživatel.";
+                return true;
             } else {
                 // dotaz skoncil chybou
-                echo "Registrace uživatele se nezdařila.";
+                return false;
             }
             /////// KONEC: Osetreni SQL Injection ///
         }
-
     }
 
     /**
@@ -284,85 +334,6 @@ class MyDatabase {
     }
 
     ///////////////////  KONEC: Konkretni funkce  ////////////////////////////////////////////
-
-    ///////////////////  Sprava prihlaseni uzivatele  ////////////////////////////////////////
-
-    /**
-     * Overi, zda muse byt uzivatel prihlasen a pripadne ho prihlasi.
-     *
-     * @param string $login     Login uzivatele.
-     * @param string $heslo     Heslo uzivatele.
-     * @return bool             Byl prihlasen?
-     */
-    public function userLogin(string $login, string $heslo){
-        // ziskam uzivatele z DB - primo overuju login i heslo
-        $where = "login='$login' AND heslo='$heslo'";
-        $user = $this->selectFromTable(TABLE_USER, $where);
-        // ziskal jsem uzivatele
-        if(count($user)){
-            // ziskal - ulozim ho do session
-            $_SESSION[$this->userSessionKey] = $user[0]['id_uzivatel']; // beru prvniho nalezeneho a ukladam jen jeho ID
-            return true;
-        } else {
-            // neziskal jsem uzivatele
-            return false;
-        }
-    }
-
-    /**
-     * Odhlasi soucasneho uzivatele.
-     */
-    public function userLogout(){
-        unset($_SESSION[$this->userSessionKey]);
-    }
-
-    /**
-     * Test, zda je nyni uzivatel prihlasen.
-     *
-     * @return bool     Je prihlasen?
-     */
-    public function isUserLogged(){
-        return isset($_SESSION[$this->userSessionKey]);
-    }
-
-    /**
-     * Pokud je uzivatel prihlasen, tak vrati jeho data,
-     * ale pokud nebyla v session nalezena, tak vypisu chybu.
-     *
-     * @return mixed|null   Data uzivatele nebo null.
-     */
-    public function getLoggedUserData(){
-        if($this->isUserLogged()){
-            // ziskam data uzivatele ze session
-            $userId = $_SESSION[$this->userSessionKey];
-            // pokud nemam data uzivatele, tak vypisu chybu a vynutim odhlaseni uzivatele
-            if($userId == null) {
-                // nemam data uzivatele ze session - vypisu jen chybu, uzivatele odhlasim a vratim null
-                echo "SEVER ERROR: Data přihlášeného uživatele nebyla nalezena, a proto byl uživatel odhlášen.";
-                $this->userLogout();
-                // vracim null
-                return null;
-            } else {
-                // nactu data uzivatele z databaze
-                $userData = $this->selectFromTable(TABLE_USER, "id_uzivatel=$userId");
-                // mam data uzivatele?
-                if(empty($userData)){
-                    // nemam - vypisu jen chybu, uzivatele odhlasim a vratim null
-                    echo "ERROR: Data přihlášeného uživatele se nenachází v databázi (mohl být smazán), a proto byl uživatel odhlášen.";
-                    $this->userLogout();
-                    return null;
-                } else {
-                    // protoze DB vraci pole uzivatelu, tak vyjmu jeho prvni polozku a vratim ziskana data uzivatele
-                    return $userData[0];
-                }
-            }
-        } else {
-            // uzivatel neni prihlasen - vracim null
-            return null;
-        }
-    }
-
-    ///////////////////  KONEC: Sprava prihlaseni uzivatele  ////////////////////////////////////////
 
 }
 ?>

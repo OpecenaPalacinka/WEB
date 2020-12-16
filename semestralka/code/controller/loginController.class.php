@@ -9,6 +9,11 @@ class loginController implements IController {
 
     /** @var MyDatabase $db  Sprava databaze. */
     private $db;
+    /**
+     * @var userManage
+     */
+    private $user;
+
 
     /**
      * Inicializace pripojeni k databazi.
@@ -17,6 +22,8 @@ class loginController implements IController {
         // inicializace prace s DB
         require_once (DIRECTORY_MODELS ."/MyDatabase.class.php");
         $this->db = new MyDatabase();
+        require_once (DIRECTORY_MODELS ."/userManage.php");
+        $this->user = new userManage();
     }
 
     /**
@@ -30,6 +37,37 @@ class loginController implements IController {
         $tplData = [];
         // nazev
         $tplData['title'] = $pageTitle;
+
+        if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
+            $this->user->userLogout();
+            header("URL=index.php?page=uvod");
+        }
+
+        $tplData['userLogged'] = $this->user->isUserLogged();
+        if($tplData['userLogged']){
+            $user = $this->user->getLoggedUserData();
+            $tplData['pravo'] = $user['PRAVA_id_prava'];
+        } else {
+            $tplData['pravo'] = 10;
+        }
+
+        if (isset($_POST['prihlasit']) and isset($_POST['email']) and
+            isset($_POST['password']) and $_POST['prihlasit'] == "prihlasit"){
+
+            $email = htmlspecialchars($_POST['email']);
+            $heslo = htmlspecialchars($_POST['password']);
+            $uzivatel = $this->db->vratUzivatele($email,$heslo);
+            if (!empty($uzivatel)){
+                $tplData['userLogged'] = $this->user->userLogin($email,$heslo);
+                $tplData['povedloSe'] = true;
+                $tplData['login'] = "Přihlášení se povedlo! Vítejte ".$uzivatel[0]['username'];
+            } else {
+                $tplData['povedloSe'] = false;
+                $tplData['login'] = "Zadali jste špatný email nebo heslo!";
+            }
+        }
+
+
 
         //// vypsani prislusne sablony
         // zapnu output buffer pro odchyceni vypisu sablony

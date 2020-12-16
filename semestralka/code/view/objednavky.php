@@ -5,8 +5,9 @@ global $tplData;
 require("zakladHTML.class.php");
 $tplHeaders = new zakladHTML();
 
-$tplHeaders->createHeader("Styles/carousel.css",$tplData['title']);
+$tplHeaders->createHeader("Styles/signin.css",$tplData['title']);
 ?>
+
 <body>
 <?php
 if (!$tplData['userLogged']) {
@@ -15,9 +16,7 @@ if (!$tplData['userLogged']) {
     $tplHeaders->createNav($tplData['pravo'],"odhlaseni");
 }
 ?>
-<!-- Místo pro sekci o nás-->
-<p>Ahoj, tady je sekce o nás</p>
-<?php
-$tplHeaders->createFooter();
-?>
+    <p>Ahoj světě</p>
+
+
 </body>
