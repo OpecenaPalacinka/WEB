@@ -172,6 +172,11 @@ class MyDatabase {
         return $reky;
     }
 
+    public function getAllObjednavky(){
+        $objednavky = $this->selectFromTable(TABLE_OBJEDNAVKA,"","id_objednavky");
+        return $objednavky;
+    }
+
     /**
      * Ziskani zaznamu vsech lodí z aplikace.
      *
@@ -193,6 +198,14 @@ class MyDatabase {
     public function getExactReka($jmenoReky){
         $reka = $this->selectFromTable(TABLE_REKY, "nazev='$jmenoReky'");
         return $reka[0];
+    }
+    public function getExactRekaById($id){
+        $reka = $this->selectFromTable(TABLE_REKY, "id_reky='$id'");
+        return $reka[0];
+    }
+    public function getExactUserById($id){
+        $user = $this->selectFromTable(TABLE_USER, "id_user='$id'");
+        return $user[0];
     }
 
     public function vytvorObjednavku($id,$datumVyberu,$id_user,$id_reky,$datumVraceni,$schvalena=0): bool

@@ -39,6 +39,10 @@ class objednavkaController implements IController {
 
         $tplData['reky'] = $this->db->getAllReky();
 
+        $tplData['lode'] = $this->db->getAllLode();
+
+        $tplData['prislusenstvi'] = $this->db->getAllPrislusenstvi();
+
         if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
             $this->user->userLogout();
         }
@@ -55,7 +59,15 @@ class objednavkaController implements IController {
             $tplData['pravo'] = 10;
         }
 
-        if (isset($_POST['rezervace']) and isset($_POST['firstName']) and
+        $tplData['zkouska'] = "Začátek";
+
+        $tplData['povedloSe'] = false;
+        $tplData['uspech'] = "Je mi líto, ale rezervace se nezdařila";
+
+        if ($_POST['dat-vyp'] < date('Y-m-d')) {
+            $tplData['povedloSe'] = false;
+            $tplData['uspech'] = "Pokud nemáte stroj času, tak si prosím nerezervujte loď do minulosti.";
+        } else if (isset($_POST['rezervace']) and isset($_POST['firstName']) and
             isset($_POST['password']) and isset($_POST['email']) and
             ($_POST['dat-vyp'] < $_POST['dat-vra'])){
 
@@ -71,7 +83,6 @@ class objednavkaController implements IController {
             $lod1 = $_POST['lod1'];
             $lod2 = $_POST['lod2'];
             $lod3 = $_POST['lod3'];
-
             $lod4 = $_POST['lod4'];
             $lod5 = $_POST['lod5'];
             $padla = $_POST['padlo'];
@@ -79,7 +90,10 @@ class objednavkaController implements IController {
             $vestaDite = $_POST['vesta-dite'];
             $barel = $_POST['barel'];
             $pumpa = $_POST['pumpa'];
+
             $cas = intval(time()/10);
+
+            $tplData['zkouska'] = $datVyp;
 
             $isRegistred = $this->db->getAUser($email);
             if (!count($isRegistred)){
@@ -124,9 +138,9 @@ class objednavkaController implements IController {
                 }
                 $tplData['povedloSe'] = true;
                 $tplData['uspech'] = "Rezervace proběhla úspěšně.";
-            } else {
+            } else  {
                 $tplData['povedloSe'] = false;
-                $tplData['uspech'] = "Je mi líto, ale zadali jste špatné jméno nebo heslo";
+                $tplData['uspech'] = "Je mi líto, ale zadali jste špatné jméno nebo heslo.";
             }
 
 

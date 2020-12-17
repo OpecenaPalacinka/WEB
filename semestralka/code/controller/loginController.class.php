@@ -40,7 +40,6 @@ class loginController implements IController {
 
         if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
             $this->user->userLogout();
-            header("URL=index.php?page=uvod");
         }
 
         $tplData['userLogged'] = $this->user->isUserLogged();

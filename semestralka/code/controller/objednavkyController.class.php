@@ -37,6 +37,20 @@ class objednavkyController implements IController {
         // nazev
         $tplData['title'] = $pageTitle;
 
+        $objednavky = $this->db->getAllObjednavky();
+
+        foreach ($objednavky as $key => $objednavka){
+            $objednavky[$key]['REKY_id_reky'] = $this->db->getExactRekaById($objednavka['REKY_id_reky'])['nazev'];
+            $objednavky[$key]['USER_id_user'] = $this->db->getExactUserById($objednavka['USER_id_user'])['username'];
+            if ($objednavka['schvalena'] == 0){
+                $objednavky[$key]['schvalena'] = "NE";
+            } else {
+                $objednavky[$key]['schvalena'] = "ANO";
+            }
+        }
+
+        $tplData['objednavky'] = $objednavky;
+
         if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
             $this->user->userLogout();
         }

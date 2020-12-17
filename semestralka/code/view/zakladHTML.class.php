@@ -32,6 +32,7 @@ public static function createHeader($styleHref,$title=""){
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="https://kit.fontawesome.com/788503f4f8.js" crossorigin="anonymous"></script>
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 
 
         <link rel="stylesheet" href="npm-ukazka/node_modules/bootstrap/dist/css/bootstrap.min.css">
