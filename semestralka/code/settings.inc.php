@@ -28,7 +28,7 @@
 const DIRECTORY_CONTROLLERS = "controller";
 /** Adresar modelu. */
 const DIRECTORY_MODELS = "model";
-/** Adresar sablon */
+/** Adresar pohledů */
 const DIRECTORY_VIEWS = "view";
 
 /** Klic defaultni webove stranky. */
@@ -106,6 +106,4 @@ const WEB_PAGES = array(
     ),
     //// KONEC: Objednávky ////
 );
-
-
 ?>

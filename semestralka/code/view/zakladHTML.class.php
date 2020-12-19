@@ -4,8 +4,8 @@
 class zakladHTML
 {
     /**
-     *  Vytvoreni hlavicky stranky.
-     * @param $styleHref
+     *  Vytvoření hlavičky stránky (header)
+     * @param $styleHref    /Stylesheet
      * @param string $title Nazev stranky.
      */
 public static function createHeader($styleHref,$title=""){
@@ -47,6 +47,13 @@ public static function createHeader($styleHref,$title=""){
     </head>
     <?php
     }
+
+	/**
+	 * Vytvoření navigace
+	 *
+	 * @param $pravo        /Hodnota práva uživatele
+	 * @param string $stav  /Stav - přihlášen/odhlášen
+	 */
 public static function createNav($pravo,$stav="prihlaseni"){
     ?>
     <div class="d-flex navbar bg-white border-bottom shadow-sm navbar-dark sticky-top">
@@ -79,6 +86,10 @@ public static function createNav($pravo,$stav="prihlaseni"){
     </div>
     <?php
     }
+
+	/**
+	 * Vypsání patičky
+	 */
 public static function createFooter(){
     ?>
     <footer class="pt-2 border-top d-flex justify-content-around">

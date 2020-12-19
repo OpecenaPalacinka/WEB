@@ -2,7 +2,6 @@
 
 /**
  *  Objekt pro praci se Session.
- *  @author Jan Pelikán
  */
 class MySession{
     

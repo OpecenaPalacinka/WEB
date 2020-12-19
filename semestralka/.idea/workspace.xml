@@ -20,22 +20,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f46dddf-cb61-4bbe-918e-d4f5c870c90d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/code/view/objednavky.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/semestralka.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/semestralka.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/controller/IController.interface.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/IController.interface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/controller/cenikController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/cenikController.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/controller/loginController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/loginController.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/ApplicationStart.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/ApplicationStart.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Styles/carousel.css" beforeDir="false" afterPath="$PROJECT_DIR$/code/Styles/carousel.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/controller/oNasController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/oNasController.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/controller/objednavkaController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/objednavkaController.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/controller/objednavkyController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/objednavkyController.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/controller/registraceController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/registraceController.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/controller/uvodController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/uvodController.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/model/MyDatabase.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/model/MyDatabase.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/view/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/model/MySessions.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/model/MySessions.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/model/userManage.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/model/userManage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/settings.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/settings.inc.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/cenik.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/cenik.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/view/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/login.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/oNas.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/oNas.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/objednavka.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/objednavka.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/objednavky.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/objednavky.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/view/registrace.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/registrace.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/uvod.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/uvod.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/zakladHTML.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/zakladHTML.class.php" afterDir="false" />
     </list>
@@ -112,7 +115,7 @@
       <workItem from="1607688336710" duration="453000" />
       <workItem from="1607688991718" duration="3282000" />
       <workItem from="1607856559955" duration="25699000" />
-      <workItem from="1607948480154" duration="107589000" />
+      <workItem from="1607948480154" duration="111235000" />
     </task>
     <servers />
   </component>

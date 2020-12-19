@@ -1,22 +1,23 @@
 <?php
-// nactu rozhrani kontroleru
+
 require_once(DIRECTORY_CONTROLLERS."/IController.interface.php");
 
+/**
+ * Ovladač pro výpis registrace
+ */
 class registraceController
 {
-
     /** @var MyDatabase $db  Sprava databaze. */
     private $db;
     /**
-     * @var userManage
+     * @var userManage $user Správa uživatele
      */
     private $user;
 
     /**
-     * Inicializace pripojeni k databazi.
+     * Inicializace připojení k databázi a správě uživatele
      */
     public function __construct() {
-        // inicializace prace s DB
         require_once (DIRECTORY_MODELS ."/MyDatabase.class.php");
         $this->db = new MyDatabase();
         require_once (DIRECTORY_MODELS ."/userManage.php");
@@ -24,15 +25,14 @@ class registraceController
     }
 
     /**
-     * Vrati obsah uvodni stranky.
-     * @param string $pageTitle     Nazev stranky.
-     * @return string               Vypis v sablone.
+     * Vrátí obsah stránky s registrací
+     * @param string $pageTitle     Název stránky
+     * @return string               Výpis
      */
     public function show(string $pageTitle):string {
-        //// vsechna data sablony budou globalni
         global $tplData;
         $tplData = [];
-        // nazev
+
         $tplData['title'] = $pageTitle;
 
         if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
@@ -65,17 +65,11 @@ class registraceController
             }
         }
 
-        //// vypsani prislusne sablony
-        // zapnu output buffer pro odchyceni vypisu sablony
         ob_start();
-        // pripojim sablonu, cimz ji i vykonam
         require(DIRECTORY_VIEWS ."/registrace.php");
-        // ziskam obsah output bufferu, tj. vypsanou sablonu
         $obsah = ob_get_clean();
 
-        // vratim sablonu naplnenou daty
         return $obsah;
     }
-
 }
 ?>

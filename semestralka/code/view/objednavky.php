@@ -1,7 +1,6 @@
 <?php
 global $tplData;
 
-// pripojim objekt pro vypis hlavicky a paticky HTML
 require("zakladHTML.class.php");
 $tplHeaders = new zakladHTML();
 

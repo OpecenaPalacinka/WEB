@@ -1,21 +1,21 @@
 <?php
-// nactu rozhrani kontroleru
+
 require_once(DIRECTORY_CONTROLLERS."/IController.interface.php");
 
 /**
- * Ovladac zajistujici vypsani stranky se spravou uzivatelu.
+ * Ovladač pro výpis stránky O nás
  */
 class oNasController implements IController {
 
     /** @var MyDatabase $db  Sprava databaze. */
     private $db;
     /**
-     * @var userManage
+     * @var userManage $user Správa uživatele
      */
     private $user;
 
     /**
-     * Inicializace pripojeni k databazi.
+     * Inicializace připojení k databázi a správě uživatele
      */
     public function __construct() {
         // inicializace prace s DB
@@ -26,15 +26,14 @@ class oNasController implements IController {
     }
 
     /**
-     * Vrati obsah stranky se spravou uzivatelu.
-     * @param string $pageTitle     Nazev stranky.
-     * @return string               Vypis v sablone.
+     * Vrátí obsah stránky O nás
+     * @param string $pageTitle     Název stránky
+     * @return string               Výpis
      */
     public function show(string $pageTitle):string {
-        //// vsechna data sablony budou globalni
         global $tplData;
         $tplData = [];
-        // nazev
+
         $tplData['title'] = $pageTitle;
 
         if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
@@ -50,18 +49,11 @@ class oNasController implements IController {
             $tplData['pravo'] = 10;
         }
 
-        //// vypsani prislusne sablony
-        // zapnu output buffer pro odchyceni vypisu sablony
         ob_start();
-        // pripojim sablonu, cimz ji i vykonam
         require(DIRECTORY_VIEWS ."/oNas.php");
-        // ziskam obsah output bufferu, tj. vypsanou sablonu
         $obsah = ob_get_clean();
 
-        // vratim sablonu naplnenou daty
         return $obsah;
     }
-
 }
-
 ?>

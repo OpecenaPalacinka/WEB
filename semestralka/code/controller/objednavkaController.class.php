@@ -3,19 +3,19 @@
 require_once(DIRECTORY_CONTROLLERS."/IController.interface.php");
 
 /**
- * Ovladac zajistujici vypsani uvodni stranky.
+ * Ovladač pro vypsání stránky s objednávkou
  */
 class objednavkaController implements IController {
 
-    /** @var MyDatabase $db  Sprava databaze. */
+    /** @var MyDatabase $db  Správa databáze */
     private $db;
     /**
-     * @var userManage
+     * @var userManage $user Správa uživatele
      */
     private $user;
 
     /**
-     * Inicializace pripojeni k databazi.
+     * Inicializace připojení k databázi a správě uživatele
      */
     public function __construct() {
         // inicializace prace s DB
@@ -26,15 +26,14 @@ class objednavkaController implements IController {
     }
 
     /**
-     * Vrati obsah uvodni stranky.
-     * @param string $pageTitle     Nazev stranky.
-     * @return string               Vypis v sablone.
+     * Vrátí stránku s možností objednávky.
+     * @param string $pageTitle     Název stránky.
+     * @return string               Výpis.
      */
     public function show(string $pageTitle):string {
-        //// vsechna data sablony budou globalni
         global $tplData;
         $tplData = [];
-        // nazev
+
         $tplData['title'] = $pageTitle;
 
         $tplData['reky'] = $this->db->getAllReky();
@@ -147,15 +146,10 @@ class objednavkaController implements IController {
 
         }
 
-        //// vypsani prislusne sablony
-        // zapnu output buffer pro odchyceni vypisu sablony
         ob_start();
-        // pripojim sablonu, cimz ji i vykonam
         require(DIRECTORY_VIEWS ."/objednavka.php");
-        // ziskam obsah output bufferu, tj. vypsanou sablonu
         $obsah = ob_get_clean();
 
-        // vratim sablonu naplnenou daty
         return $obsah;
     }
 
