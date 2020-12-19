@@ -1,5 +1,5 @@
 <?php
-// nactu rozhrani kontroleru
+
 require_once(DIRECTORY_CONTROLLERS."/IController.interface.php");
 
 /**

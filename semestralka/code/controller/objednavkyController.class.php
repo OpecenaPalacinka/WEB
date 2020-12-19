@@ -42,6 +42,17 @@ class objednavkyController implements IController {
         foreach ($objednavky as $key => $objednavka){
             $objednavky[$key]['REKY_id_reky'] = $this->db->getExactRekaById($objednavka['REKY_id_reky'])['nazev'];
             $objednavky[$key]['USER_id_user'] = $this->db->getExactUserById($objednavka['USER_id_user'])['username'];
+            $exactlode = $this->db->getAllLodeByIdObjednavky($objednavka['id_objednavky']);
+            $exactPrislu = $this->db->getAllPrisluByIdObjednavky($objednavka['id_objednavky']);
+            foreach ($exactlode as $keySecond => $exactLod){
+                $exactlode[$keySecond]['LODE_id_lod'] = $this->db->getExactLodById($exactLod['LODE_id_lod'])['typ_lode'];
+            }
+            foreach ($exactPrislu as $keyThird => $exactPrislusenstvi){
+                $exactPrislu[$keyThird]['PRISLUSENSTVI_id_prislusenstvi'] = $this->db->getExactPrisluById($exactPrislusenstvi['PRISLUSENSTVI_id_prislusenstvi'])['nazev_prislusen'];
+            }
+
+            $tplData["lode".$objednavka["id_objednavky"]] = $exactlode;
+            $tplData["prislu".$objednavka["id_objednavky"]] = $exactPrislu;
             if ($objednavka['schvalena'] == 0){
                 $objednavky[$key]['schvalena'] = "NE";
             } else {
@@ -50,6 +61,13 @@ class objednavkyController implements IController {
         }
 
         $tplData['objednavky'] = $objednavky;
+
+        if(isset($_POST['Schvalit'])){
+            $objID = $_POST['Schvalit'];
+            $obj = $this->db->getExactObjById($objID);
+            $this->db->updateObjednavka($objID,$obj['datum_vytvoreni'],$obj['USER_id_user'],$obj['REKY_id_reky'],1,$obj['datum_vraceni']);
+            header("Refresh:0");
+        }
 
         if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
             $this->user->userLogout();
@@ -63,6 +81,9 @@ class objednavkyController implements IController {
         } else {
             $tplData['pravo'] = 10;
         }
+
+
+
 
         //// vypsani prislusne sablony
         // zapnu output buffer pro odchyceni vypisu sablony

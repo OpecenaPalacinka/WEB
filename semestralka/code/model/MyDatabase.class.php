@@ -173,7 +173,7 @@ class MyDatabase {
     }
 
     public function getAllObjednavky(){
-        $objednavky = $this->selectFromTable(TABLE_OBJEDNAVKA,"","id_objednavky");
+        $objednavky = $this->selectFromTable(TABLE_OBJEDNAVKA,"","datum_vytvoreni");
         return $objednavky;
     }
 
@@ -207,6 +207,31 @@ class MyDatabase {
         $user = $this->selectFromTable(TABLE_USER, "id_user='$id'");
         return $user[0];
     }
+
+    public function getAllLodeByIdObjednavky($idObjednavky){
+        $lode = $this->selectFromTable(TABLE_OBJEDNAVKA_LODE,"OBJEDNAVKA_id_objednavky='$idObjednavky'");
+        return $lode;
+    }
+    public function getExactLodById($id){
+        $lod = $this->selectFromTable(TABLE_LODE, "id_lod='$id'");
+        return $lod[0];
+    }
+
+    public function getAllPrisluByIdObjednavky($idObjednavky){
+        $prislu = $this->selectFromTable(TABLE_POMOCNA_PRISLUSENSTVI,"OBJEDNAVKA_id_objednavky='$idObjednavky'");
+        return $prislu;
+    }
+
+    public function getExactPrisluById($id){
+        $prislu = $this->selectFromTable(TABLE_PRISLUSENSTVI, "id_prislusenstvi='$id'");
+        return $prislu[0];
+    }
+
+    public function getExactObjById($id){
+        $obj = $this->selectFromTable(TABLE_OBJEDNAVKA, "id_objednavky='$id'");
+        return $obj[0];
+    }
+
 
     public function vytvorObjednavku($id,$datumVyberu,$id_user,$id_reky,$datumVraceni,$schvalena=0): bool
     {
@@ -326,24 +351,26 @@ class MyDatabase {
         }
     }
 
+
     /**
      * Uprava konkretniho uzivatele v databazi.
      *
-     * @param int $idUzivatel   ID upravovaneho uzivatele.
-     * @param string $login     Login.
-     * @param string $heslo     Heslo.
-     * @param string $jmeno     Jmeno.
-     * @param string $email     E-mail.
-     * @param int $idPravo      ID prava.
+     * @param int $idObjednavky
+     * @param $datum_vytvoreni
+     * @param int $USER_id_user
+     * @param int $REKY_id_reky
+     * @param int $schvaleno
+     * @param $datum_vraceni
      * @return bool             Bylo upraveno?
      */
-    public function updateUser(int $idUzivatel, string $login, string $heslo, string $jmeno, string $email, int $idPravo){
+    public function updateObjednavka(int $idObjednavky, $datum_vytvoreni, int $USER_id_user, int $REKY_id_reky, int $schvalena, $datum_vraceni): bool
+    {
         // slozim cast s hodnotami
-        $updateStatementWithValues = "login='$login', heslo='$heslo', jmeno='$jmeno', email='$email', id_pravo='$idPravo'";
+        $updateStatementWithValues = "id_objednavky='$idObjednavky', datum_vytvoreni='$datum_vytvoreni', USER_id_user='$USER_id_user', REKY_id_reky='$REKY_id_reky', schvalena='$schvalena', datum_vraceni='$datum_vraceni'";
         // podminka
-        $whereStatement = "id_uzivatel=$idUzivatel";
+        $whereStatement = "id_objednavky=$idObjednavky";
         // provedu update
-        return $this->updateInTable(TABLE_USER, $updateStatementWithValues, $whereStatement);
+        return $this->updateInTable(TABLE_OBJEDNAVKA, $updateStatementWithValues, $whereStatement);
     }
 
     ///////////////////  KONEC: Konkretni funkce  ////////////////////////////////////////////

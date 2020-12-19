@@ -76,14 +76,14 @@ if (!$tplData['userLogged']) {
             <img class="rounded-circle" src="../image/dite.jpg" width="170" height="170" alt="dite"/>
             <h2>Dětský den s vodáky</h2>
             <p>Tento rok se konal 3. ročník dětského dne s vodáky. Pro děti bylo připraveno herní odpoledne na vodě a pro rodiče sud piva.</p>
-            <p><a class="btn btn-primary" href="#" role="button">Dozvědět se více &raquo;</a></p>
+            <p><a class="btn btn-primary" href="index.php?page=oNas" role="button">Dozvědět se více &raquo;</a></p>
         </div>
 
         <div class="col-lg-6">
             <img class="bd-placeholder-img rounded-circle" src="../image/vodaci.jpg" width="182" height="170" alt="vodaci"/>
             <h2>35. ročník vodácké soutěže</h2>
             <p>V červenci tohoto roku se uskutečnil 35. ročník vodácké souteže pro dospělé. Jak je již známo soutěžilo se o nejrychlejšího jedince na vodě.</p>
-            <p><a class="btn btn-primary" href="#" role="button">Dozvědět se více &raquo;</a></p>
+            <p><a class="btn btn-primary" href="index.php?page=oNas" role="button">Dozvědět se více &raquo;</a></p>
         </div>
     </div>
     </div>

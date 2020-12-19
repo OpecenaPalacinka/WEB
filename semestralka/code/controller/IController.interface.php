@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Rozhrani pro vsechny ovladace (kontrolery).
+ * Rozhraní pro všechny Controllery
  */
 interface IController {
 
     /**
-     * Zajisti vypsani prislusne stranky.
+     * Zajistí vypsání příslušné stránky
      *
-     * @param string $pageTitle     Nazev stanky.
-     * @return string               HTML prislusne stranky.
+     * @param string $pageTitle     Název stránky.
+     * @return string               HTML dané stránky.
      */
     public function show(string $pageTitle):string;
 

@@ -1,22 +1,22 @@
 <?php
-// nactu rozhrani kontroleru
+
 require_once(DIRECTORY_CONTROLLERS."/IController.interface.php");
 
 /**
- * Ovladac zajistujici vypsani uvodni stranky.
+ * Ovladač pro vypsaní loginu.
  */
 class loginController implements IController {
 
-    /** @var MyDatabase $db  Sprava databaze. */
+    /** @var MyDatabase $db  Správa databáze. */
     private $db;
     /**
-     * @var userManage
+     * @var userManage  $user Správa uživatele
      */
     private $user;
 
 
     /**
-     * Inicializace pripojeni k databazi.
+     * Inicializace připojení k databázi a správě uživatele
      */
     public function __construct() {
         // inicializace prace s DB
@@ -27,15 +27,14 @@ class loginController implements IController {
     }
 
     /**
-     * Vrati obsah uvodni stranky.
-     * @param string $pageTitle     Nazev stranky.
-     * @return string               Vypis v sablone.
+     * Vrati obsah loginu.
+     * @param string $pageTitle     Název stránky.
+     * @return string               Výpis
      */
     public function show(string $pageTitle):string {
-        //// vsechna data sablony budou globalni
         global $tplData;
         $tplData = [];
-        // nazev
+
         $tplData['title'] = $pageTitle;
 
         if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
@@ -66,17 +65,10 @@ class loginController implements IController {
             }
         }
 
-
-
-        //// vypsani prislusne sablony
-        // zapnu output buffer pro odchyceni vypisu sablony
         ob_start();
-        // pripojim sablonu, cimz ji i vykonam
         require(DIRECTORY_VIEWS ."/login.php");
-        // ziskam obsah output bufferu, tj. vypsanou sablonu
         $obsah = ob_get_clean();
 
-        // vratim sablonu naplnenou daty
         return $obsah;
     }
 

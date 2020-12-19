@@ -20,16 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f46dddf-cb61-4bbe-918e-d4f5c870c90d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/code/view/objednavky.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/semestralka.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/semestralka.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/controller/IController.interface.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/IController.interface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/controller/cenikController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/cenikController.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/controller/loginController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/loginController.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/controller/objednavkaController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/objednavkaController.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/controller/objednavkyController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/controller/objednavkyController.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/model/MyDatabase.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/model/MyDatabase.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/view/cenik.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/cenik.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/view/oNas.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/oNas.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/objednavka.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/objednavka.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/objednavky.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/objednavky.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/view/uvod.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/uvod.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/view/zakladHTML.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/view/zakladHTML.class.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,6 +46,9 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../semestralka\exportToHTML" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -68,7 +78,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/code" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -102,7 +112,7 @@
       <workItem from="1607688336710" duration="453000" />
       <workItem from="1607688991718" duration="3282000" />
       <workItem from="1607856559955" duration="25699000" />
-      <workItem from="1607948480154" duration="76972000" />
+      <workItem from="1607948480154" duration="107589000" />
     </task>
     <servers />
   </component>
@@ -123,5 +133,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

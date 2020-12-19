@@ -1,4 +1,3 @@
-
 if (document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded',ready);
 } else {
@@ -73,8 +72,8 @@ function ready() {
         }
         $.ajax({
             type: 'POST',
-            url: '../controller/objednavkaController.class.php',
-            data: { lod1: lod1, lod2: lod2, lod3: lod3, lod4: lod4, lod5: lod5, pumpa: pumpa, padlo: padlo,vesta_dosp: vesta_dosp, vesta_dite:vesta_dite,barel:barel},
+            url: 'controller/objednavkaController.class.php',
+            data: {lod1: lod1, lod2: lod2, lod3: lod3, lod4: lod4, lod5: lod5, pumpa: pumpa, padlo: padlo,vesta_dosp: vesta_dosp, vesta_dite:vesta_dite,barel:barel},
             success: function (response){
                 console.log(response);
             }
