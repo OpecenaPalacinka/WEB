@@ -6,7 +6,7 @@ $tplHeaders = new zakladHTML();
 
 $tplHeaders->createHeader("Styles/signin.css",$tplData['title']);
 ?>
-
+<script src="view/objednavky.js" async></script>
 <body>
 <?php
 if (!$tplData['userLogged']) {

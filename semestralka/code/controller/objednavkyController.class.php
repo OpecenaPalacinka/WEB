@@ -69,6 +69,7 @@ class objednavkyController implements IController {
 
         if(isset($_POST['odhlasit']) and $_POST['odhlasit'] == "odhlasit"){
             $this->user->userLogout();
+	        header('location: index.php?page=uvod');
         }
 
         $tplData['userLogged'] = $this->user->isUserLogged();
@@ -77,7 +78,7 @@ class objednavkyController implements IController {
             $user = $this->user->getLoggedUserData();
             $tplData['pravo'] = $user['PRAVA_id_prava'];
         } else {
-            $tplData['pravo'] = 10;
+            $tplData['pravo'] = null;
         }
 
         ob_start();

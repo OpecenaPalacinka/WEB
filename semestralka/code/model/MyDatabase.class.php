@@ -145,10 +145,16 @@ class MyDatabase {
      * @param string $jmenoReky Jméno řeky
      * @return array    Pole se řekou.
      */
-    public function getExactReka(string $jmenoReky): array
+    public function getExactReka(string $jmenoReky): ?array
     {
-        $reka = $this->selectFromTable(TABLE_REKY, "nazev='$jmenoReky'");
-        return $reka[0];
+        $q = "SELECT * FROM ".TABLE_REKY." WHERE nazev=:nazev;";
+        $vystup = $this->pdo->prepare($q);
+        $vystup->bindValue(":nazev", $jmenoReky);
+        if($vystup->execute()){
+            return $vystup->fetchAll();
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -200,6 +206,24 @@ class MyDatabase {
     }
 
     /**
+     * Získání dané lodě podle jejího jména
+     *
+     * @param $nazev
+     * @return array    Pole s lodí.
+     */
+    public function getExactLodByName($nazev): ?array
+    {
+        $q = "SELECT * FROM ".TABLE_LODE." WHERE typ_lode=:nazev;";
+        $vystup = $this->pdo->prepare($q);
+        $vystup->bindValue(":nazev", $nazev);
+        if($vystup->execute()){
+            return $vystup->fetchAll();
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Získání všeho příslušenství, které je u jedné objednávky
      *
      * @param int $idObjednavky ID objednávky ve které hledám příslušenství
@@ -224,6 +248,24 @@ class MyDatabase {
     }
 
     /**
+     * Získání daného příslušenství podle jejo jména
+     *
+     * @param $nazev
+     * @return array    Pole s lodí.
+     */
+    public function getExactPrisluByName($nazev): ?array
+    {
+        $q = "SELECT * FROM ".TABLE_PRISLUSENSTVI." WHERE nazev_prislusen=:nazev;";
+        $vystup = $this->pdo->prepare($q);
+        $vystup->bindValue(":nazev", $nazev);
+        if($vystup->execute()){
+            return $vystup->fetchAll();
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Získání objednávky podle jejího ID
      *
      * @param int $id   ID objednávky
@@ -236,9 +278,21 @@ class MyDatabase {
     }
 
     /**
+     * Získání objednávky podle uživatelovo ID
+     *
+     * @param int $idUser   Uživatelovo ID
+     * @return array    Pole s danou objednávkou
+     */
+    public function getExactObjByUserId(int $idUser): array
+    {
+        $obj = $this->selectFromTable(TABLE_OBJEDNAVKA, "USER_id_user='$idUser'");
+        return $obj;
+    }
+
+    /**
      * Vytvoření celé objednávky
      *
-     * @param int $id               ID objednávky
+     * @param $id                   /ID objednávky
      * @param $datumVyberu          /Datum vypůjčení
      * @param $id_user              /ID uživatele, který vytvořil objednávku
      * @param $id_reky              /ID řeky, která byla vybrána
@@ -246,7 +300,7 @@ class MyDatabase {
      * @param int $schvalena        Byla schálena? 0 - NE || 1 - ANO
      * @return bool                 Povedlo se vytvořit objednávku?
      */
-    public function vytvorObjednavku(int $id,$datumVyberu,$id_user,$id_reky,$datumVraceni,$schvalena=0): bool
+    public function vytvorObjednavku($id,$datumVyberu,$id_user,$id_reky,$datumVraceni,$schvalena=0): bool
     {
 
         $q = "INSERT INTO ".TABLE_OBJEDNAVKA." (id_objednavky,datum_vytvoreni,USER_id_user,REKY_id_reky,schvalena,datum_vraceni) 
@@ -319,6 +373,82 @@ class MyDatabase {
         }
     }
 
+    /**
+     * Přidání řeky
+     *
+     * @param $idReky   /ID řeky
+     * @param $nazev    /Název řeky
+     * @return bool     Povedlo se?
+     */
+    public function pridejReku($idReky,$nazev): bool
+    {
+
+        $q = "INSERT INTO ".TABLE_REKY." (id_reky,nazev) 
+        VALUES (:idReky,:nazev);";
+        $vystup = $this->pdo->prepare($q);
+
+        $vystup->bindValue(":idReky", $idReky);
+        $vystup->bindValue(":nazev", $nazev);
+
+        if($vystup->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Přidání řeky
+     *
+     * @param $idPrislusenstvi
+     * @param $nazev /Název příslušenství
+     * @param $cena
+     * @return bool     Povedlo se?
+     */
+    public function pridejNovePrislusenstvi($idPrislusenstvi,$nazev,$cena): bool
+    {
+
+        $q = "INSERT INTO ".TABLE_PRISLUSENSTVI." (id_prislusenstvi,nazev_prislusen,cena) 
+        VALUES (:idPrislu,:nazev,:cena);";
+        $vystup = $this->pdo->prepare($q);
+
+        $vystup->bindValue(":idPrislu", $idPrislusenstvi);
+        $vystup->bindValue(":nazev", $nazev);
+        $vystup->bindValue(":cena", $cena);
+
+        if($vystup->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Přidání řeky
+     *
+     * @param $idLodi
+     * @param $nazev /Název řeky
+     * @param $cena
+     * @return bool     Povedlo se?
+     */
+    public function pridejNovouLod($idLodi,$nazev,$cena): bool
+    {
+
+        $q = "INSERT INTO ".TABLE_LODE." (id_lod,typ_lode,cena) 
+        VALUES (:idLodi,:nazev,:cena);";
+        $vystup = $this->pdo->prepare($q);
+
+        $vystup->bindValue(":idLodi", $idLodi);
+        $vystup->bindValue(":nazev", $nazev);
+        $vystup->bindValue(":cena", $cena);
+
+        if($vystup->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * Nalezne uživatele s daným emailem a heslem
@@ -343,12 +473,13 @@ class MyDatabase {
     /**
      * Registruje nového uživatele
      *
-     * @param $email        /Email uživatele
-     * @param $username     /Uživatelské jméno
-     * @param $password     /Heslo
+     * @param $email /Email uživatele
+     * @param $username /Uživatelské jméno
+     * @param $password /Heslo
+     * @param string $pravo /právo uživatele
      * @return bool         Povedlo se?
      */
-    public function registrujUzivatele($email, $username, $password): bool
+    public function registrujUzivatele($email, $username, $password,$pravo="3"): bool
     {
 
         $email = htmlspecialchars($email);
@@ -360,11 +491,12 @@ class MyDatabase {
 
         if(!isset($uzivatel) || count($uzivatel)==0){
 
-            $q = "INSERT INTO ".TABLE_USER." (id_user,email,username,password,PRAVA_id_prava) VALUES (NULL,:email, :login, :heslo,3);";
+            $q = "INSERT INTO ".TABLE_USER." (id_user,email,username,password,PRAVA_id_prava) VALUES (NULL,:email, :login, :heslo, :pravo);";
             $vystup = $this->pdo->prepare($q);
             $vystup->bindValue(":email", $email);
             $vystup->bindValue(":login", $username);
             $vystup->bindValue(":heslo", $password);
+            $vystup->bindValue(":pravo", $pravo);
 
             if($vystup->execute()){
                 return true;

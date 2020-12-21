@@ -46,7 +46,8 @@ class uvodController implements IController {
             $user = $this->user->getLoggedUserData();
             $tplData['pravo'] = $user['PRAVA_id_prava'];
         } else {
-            $tplData['pravo'] = 10;
+        	// Nastavím právo pro nepřihlášeného uživatele NULL
+            $tplData['pravo'] = null;
         }
 
         ob_start();

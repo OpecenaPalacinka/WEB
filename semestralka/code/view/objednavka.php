@@ -6,9 +6,10 @@ $tplHeaders = new zakladHTML();
 
 $tplHeaders->createHeader("", $tplData['title']);
 ?>
-
+<script src="view/cart.js" async></script>
 <body>
 <?php
+var_dump($tplData['zkouska']);
 if (!$tplData['userLogged']) {
 	$tplHeaders->createNav($tplData['pravo']);
 } else {
@@ -108,27 +109,32 @@ if (!$tplData['userLogged']) {
 				<br>
 
 				<?php
-				$jmenoProLode = ["lod12", "lod23", "lod34", "lod45", "lod56"];
-				$jmenoProPrislu = ["padlo1", "vesta-dosp2", "vesta-dite3", "barel4", "pumpa5"];
 				$lode = $tplData['lode'];
 				$prislusenstvi = $tplData['prislusenstvi'];
+				?>
+				<script type="text/javascript">
 
+                    var lode = <?php echo json_encode($lode); ?>;
+                    var prislusenstvi = <?php echo json_encode($prislusenstvi); ?>;
+
+				</script>
+				<?php
 				for ($c = 0; $c < count($lode); $c++) {
 					?>
 					<div class="form-group row">
-						<label class="col-form-label col-sm-4" for="<?php echo $jmenoProLode[$c]; ?>">
+						<label class="col-form-label col-sm-4" for="<?php echo $lode[$c]['typ_lode']; ?>">
 							<b><span class="cart-item-name-l"><?php echo $lode[$c]['typ_lode']; ?></span> -> <span
 										class="cart-item-price-l"><?php echo $lode[$c]['cena'] . " KČ"; ?></span></b></label>
 						<input type="button" class="btn btn-primary col-md-2 shop-add-button-l"
-						       name="<?php echo $jmenoProLode[$c]; ?>" id="<?php echo $jmenoProLode[$c]; ?>"
+						       name="<?php echo $lode[$c]['typ_lode']; ?>" id="<?php echo $lode[$c]['typ_lode']; ?>"
 						       value="Přidej">
 						<span class=""></span>
 						<label class="col-form-label col-sm-4 font-weight-bold"
-						       for="<?php echo $jmenoProPrislu[$c]; ?>">
+						       for="<?php echo $prislusenstvi[$c]['nazev_prislusen']; ?>">
 							<span class="cart-item-name-p"><?php echo $prislusenstvi[$c]['nazev_prislusen']; ?></span>
 							-> <span class="cart-item-price-p"><?php echo $prislusenstvi[$c]['cena'] . " KČ"; ?></span></label>
 						<input type="button" class="btn btn-primary col-md-2 shop-add-button-p"
-						       name="<?php echo $jmenoProPrislu[$c]; ?>" id="<?php echo $jmenoProPrislu[$c]; ?>"
+						       name="<?php echo $prislusenstvi[$c]['nazev_prislusen']; ?>" id="<?php echo $prislusenstvi[$c]['nazev_prislusen']; ?>"
 						       value="Přidej">
 					</div>
 				<?php } ?>

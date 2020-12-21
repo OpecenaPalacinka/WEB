@@ -46,7 +46,7 @@ class oNasController implements IController {
             $user = $this->user->getLoggedUserData();
             $tplData['pravo'] = $user['PRAVA_id_prava'];
         } else {
-            $tplData['pravo'] = 10;
+            $tplData['pravo'] = null;
         }
 
         ob_start();

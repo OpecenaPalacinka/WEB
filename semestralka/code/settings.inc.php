@@ -105,5 +105,25 @@ const WEB_PAGES = array(
         "class_name" => "objednavkyController",
     ),
     //// KONEC: Objednávky ////
+
+    ///  Profil ///
+    "profil" => array(
+        "title" => "Profil",
+
+        //// kontroler ////
+        "file_name" => "profilController.class.php",
+        "class_name" => "profilController",
+    ),
+    //// KONEC: Profil ////
+
+    /// Přidání produktu ///
+    "pridaniProduktu" => array(
+        "title" => "Přídání produktu",
+
+        //// kontroler ////
+        "file_name" => "pridaniProduktuController.class.php",
+        "class_name" => "pridaniProduktuController",
+    ),
+    //// KONEC: Přidání produktu ///
 );
 ?>

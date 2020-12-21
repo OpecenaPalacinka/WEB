@@ -32,15 +32,10 @@ public static function createHeader($styleHref,$title=""){
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="https://kit.fontawesome.com/788503f4f8.js" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 
         <link rel="stylesheet" href="npm-ukazka/node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="npm-ukazka/node_modules/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?=$styleHref?>">
-
-        <script src="view/cart.js" async></script>
-        <script src="view/objednavky.js" async></script>
 
         <title><?=$title?></title>
 
@@ -67,11 +62,19 @@ public static function createNav($pravo,$stav="prihlaseni"){
                     <a class="p-2 text-dark" href="index.php?page=oNas">O nás</a>
                     <a class="p-2 text-dark" href="index.php?page=objednavka">Rezervace</a>
                     <a class="p-2 text-dark" href="index.php?page=cenik">Ceník</a>
-                    <a class="p-2 text-dark" href="index.php?page=registrace">Registrace</a>
+	                <?php
+	                if ($pravo == null){ ?>
+		                <a class="p-2 text-dark" href="index.php?page=registrace">Registrace</a>
+	                <?php }
 
-                    <?php
-                    if($pravo < 2){ ?>
+                    if($pravo == 2 || $pravo == 1){ ?>
                         <a class="p-2 text-dark" href="index.php?page=objednavky">Objednávky</a>
+                    <?php }
+                    if ($pravo != null){ ?>
+	                    <a class="p-2 text-dark" href="index.php?page=profil">Profil</a>
+                   <?php }
+                    if ($pravo == 1) {?>
+	                    <a class="p-2 text-dark" href="index.php?page=pridaniProduktu">Přidání produktu</a>
                     <?php }
                     if ($stav=='prihlaseni'){ ?>
                         <a class="btn btn-outline-primary" href="index.php?page=login">Přihlášení</a>

@@ -55,13 +55,24 @@ class objednavkaController implements IController {
             $tplData['email'] = $user['email'];
             $tplData['password'] = $user['password'];
         } else {
-            $tplData['pravo'] = 10;
+            $tplData['pravo'] = null;
         }
-
-        $tplData['zkouska'] = "Začátek";
 
         $tplData['povedloSe'] = false;
         $tplData['uspech'] = "Je mi líto, ale rezervace se nezdařila";
+
+	    $poleHodnotZAjaxu=[];
+	    foreach ($tplData['lode'] as $lod){
+		    $lod = str_replace(' ', 'XXXX', $lod);
+		    array_push($poleHodnotZAjaxu,$lod);
+	    }
+	    foreach ($tplData['prislusenstvi'] as $prislusen){
+	    	$prislusen = str_replace(' ', 'XXXX', $prislusen);
+	    	array_push($poleHodnotZAjaxu,$prislusen);
+	    }
+	    for ($i = 0; $i < count($poleHodnotZAjaxu);$i++){
+		    $poleHodnotZAjaxu[$i] = $poleHodnotZAjaxu[$i][1];
+	    }
 
         if ($_POST['dat-vyp'] < date('Y-m-d')) {
             $tplData['povedloSe'] = false;
@@ -74,25 +85,22 @@ class objednavkaController implements IController {
             $firstName = htmlspecialchars($_POST['firstName']);
             $password = htmlspecialchars($_POST['password']);
             $reka = htmlspecialchars($_POST['reka']);
-            $reka = $this->db->getExactReka($reka);
+            $reka = $this->db->getExactReka($reka)[0];
             $IDreka = $reka['id_reky'];
 
             $datVyp = $_POST['dat-vyp'];
             $datVra = $_POST['dat-vra'];
-            $lod1 = $_POST['lod1'];
-            $lod2 = $_POST['lod2'];
-            $lod3 = $_POST['lod3'];
-            $lod4 = $_POST['lod4'];
-            $lod5 = $_POST['lod5'];
-            $padla = $_POST['padlo'];
-            $vestaDosp = $_POST['vesta-dosp'];
-            $vestaDite = $_POST['vesta-dite'];
-            $barel = $_POST['barel'];
-            $pumpa = $_POST['pumpa'];
+            $poleRealHodnot = [];
 
-            $cas = intval(time()/10);
+	        foreach ($poleHodnotZAjaxu as $hodnota){
+	        	if (isset($_POST[$hodnota])){
+	        		$valueInArray = $_POST[$hodnota];
+	        		$hodnota = str_replace('XXXX',' ',$hodnota);
+			        $poleRealHodnot[$hodnota] = $valueInArray;
+		        }
+            }
 
-            $tplData['zkouska'] = $datVyp;
+	        $cas = intval(time()/10);
 
             $isRegistred = $this->db->getAUser($email);
             if (!count($isRegistred)){
@@ -105,38 +113,21 @@ class objednavkaController implements IController {
                 and $firstName == $user[0]['username'])) {
                 $userID = $user[0]['id_user'];
                 $this->db->vytvorObjednavku($cas,$datVyp,$userID,$IDreka,$datVra);
-                if (!$lod1==0) {
-                    $this->db->pridejLod(1, $cas, $lod1);
-                }
-                if (!$lod2==0) {
-                    $this->db->pridejLod(2, $cas, $lod2);
-                }
-                if (!$lod3==0) {
-                    $this->db->pridejLod(3, $cas, $lod3);
-                }
-                if (!$lod4==0) {
-                    $this->db->pridejLod(4, $cas, $lod4);
-                }
-                if (!$lod5==0) {
-                    $this->db->pridejLod(5, $cas, $lod5);
-                }
-                if (!$pumpa==0){
-                    $this->db->pridejPrislusenstvi(1,$cas,$pumpa);
-                }
-                if (!$padla==0){
-                    $this->db->pridejPrislusenstvi(2,$cas,$padla);
-                }
-                if (!$vestaDosp==0){
-                    $this->db->pridejPrislusenstvi(4,$cas,$vestaDosp);
-                }
-                if (!$vestaDite==0){
-                    $this->db->pridejPrislusenstvi(5,$cas,$vestaDite);
-                }
-                if (!$barel==0){
-                    $this->db->pridejPrislusenstvi(6,$cas,$barel);
-                }
+
+	            foreach ($poleRealHodnot as $key => $itemForInsert){
+		            $isLod = $this->db->getExactLodByName($key);
+		            if ($isLod != null){
+			            $this->db->pridejLod($isLod[0]['id_lod'],$cas,intval($itemForInsert));
+			            $tplData['zkouska'] = $isLod[0]['id_lod'];
+		            } else {
+			            $prislusenstvi = $this->db->getExactPrisluByName($key);
+			            $this->db->pridejPrislusenstvi($prislusenstvi[0]['id_prislusenstvi'],$cas,intval($itemForInsert));
+		            }
+	            }
+
                 $tplData['povedloSe'] = true;
-                $tplData['uspech'] = "Rezervace proběhla úspěšně.";
+                $tplData['uspech'] = "Rezervace proběhla úspěšně.".$IDreka;
+
             } else  {
                 $tplData['povedloSe'] = false;
                 $tplData['uspech'] = "Je mi líto, ale zadali jste špatné jméno nebo heslo.";

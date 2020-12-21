@@ -33,16 +33,12 @@ class userManage
      */
     public function userLogin(string $email, string $heslo): bool
     {
-        // ziskam uzivatele z DB - primo overuju login i heslo
         $where = "email='$email' AND password='$heslo'";
         $user = $this->db->selectFromTable(TABLE_USER, $where);
-        // ziskal jsem uzivatele
         if(count($user)){
-            // ziskal - ulozim ho do session
             $_SESSION[$this->userSessionKey] = $user[0]['id_user']; // beru prvniho nalezeneho a ukladam jen jeho ID
             return true;
         } else {
-            // neziskal jsem uzivatele
             return false;
         }
     }

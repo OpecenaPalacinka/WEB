@@ -4,6 +4,8 @@ if (document.readyState === 'loading'){
     ready();
 }
 
+var inCart = [];
+
 function ready() {
     var removeCartItemButtons = document.getElementsByClassName('btn-danger');
     for (var i = 0; i < removeCartItemButtons.length; i++) {
@@ -30,53 +32,27 @@ function ready() {
     }
 
     $('.btn-lg').click(function (){
-        var lod1 = $("[name='lod1']").length;
-        if (!(lod1 === 0)){
-            lod1 = $("[name='lod1']").val();
-        }
-        var lod2 = $("[name='lod2']").length;
-        if (!(lod2 === 0)){
-            lod2 = $("[name='lod2']").val();
-        }
-        var lod3 = $("[name='lod3']").length;
-        if (!(lod3 === 0)){
-            lod3 = $("[name='lod3']").val();
-        }
-        var lod4 = $("[name='lod4']").length;
-        if (!(lod4 === 0)){
-            lod4 = $("[name='lod4']").val();
-        }
-        var lod5 = $("[name='lod5']").length;
-        if (!(lod5 === 0)){
-            lod5 = $("[name='lod5']").val();
-        }
-        var pumpa = $("[name='pumpa']").length;
-        if (!(pumpa === 0)){
-            pumpa = $("[name='pumpa']").val();
-        }
-        var padlo = $("[name='padlo']").length;
-        if (!(padlo === 0)){
-            padlo = $("[name='padlo']").val();
-        }
-        var vesta_dosp = $("[name='vesta-dosp']").length;
-        if (!(vesta_dosp === 0)){
-            vesta_dosp = $("[name='vesta-dosp']").val();
-        }
-        var vesta_dite = $("[name='vesta-dite']").length;
-        if (!(vesta_dite === 0)){
-            vesta_dite = $("[name='vesta-dite']").val();
-        }
-        var barel = $("[name='barel']").length;
-        if (!(barel === 0)){
-            barel = $("[name='barel']").val();
-        }
-        $.ajax({
-            type: 'POST',
-            url: 'controller/objednavkaController.class.php',
-            data: {lod1: lod1, lod2: lod2, lod3: lod3, lod4: lod4, lod5: lod5, pumpa: pumpa, padlo: padlo,vesta_dosp: vesta_dosp, vesta_dite:vesta_dite,barel:barel},
-            success: function (response){
-                console.log(response);
+        let poleHodnot = [];
+        for (var a = 0; a < lode.length; a++){
+            for (var b = 0; b < inCart.length; b++){
+                if (lode[a][1] === inCart[b].id){
+                    poleHodnot[inCart[b].id] = inCart[b].value;
+                }
             }
+        }
+        for (var c = 0; c < prislusenstvi.length; c++){
+            for (var d = 0; d < inCart.length; d++){
+                if (prislusenstvi[c][1] === inCart[d].id){
+                    poleHodnot[inCart[d].id] = inCart[d].value;
+                }
+            }
+        }
+        console.log(poleHodnot);
+
+        $.ajax({
+            method: 'POST',
+            url: 'index.php?page=objednavka',
+            data: {poleHodnot: poleHodnot},
         })
         //register();
     })
@@ -129,55 +105,32 @@ function addItemToCartL(title,price){
     var cartItemNames = cartItems.getElementsByClassName('my-0');
     for (var i = 0; i <cartItemNames.length; i++){
         if (cartItemNames[i].innerText === title){
-            alert('Už máte ve vozíku');
+            Swal.fire({
+                icon: 'error',
+                title: 'Položku "' + title + '" už ve vozíku máte!',
+                text: "Pokud chcete zvýšit počet, můžete tak učinit ve vozíku.",
+                showConfirmButton: true,
+                allowOutsideClick: false,
+                confirmButtonText: `OK`,
+            });
             return;
         }
     }
-    var id;
-    switch (title){
-        case "Samba 2-m":
-            id = "lod1";
-            break;
-        case "Samba 3-m":
-            id = "lod2";
-            break;
-        case "Colorado 4-m":
-            id = "lod3";
-            break;
-        case "Colorado 6-m":
-            id = "lod4";
-            break;
-        case "Kajak":
-            id = "lod5";
-            break;
-        case "Pumpa k raftu":
-            id = "pumpa";
-            break;
-        case "Pádlo":
-            id = "padlo";
-            break;
-        case "Vesta - dospělý":
-            id = "vesta-dosp";
-            break;
-        case "Vesta - dítě":
-            id = "vesta-dite";
-            break;
-        case "Barel":
-            id = "barel";
-            break;
-    }
+    novejTitle = title.replace(/\s/g, 'XXXX');
+
     var cartRowContents = `<li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">${title}</h6>
                         <small class="price-cart text-muted">${price}</small>
                     </div>
-                    <input type="number" name="${id}" id="${id}" class="item-quantity form-control col-md-3" min="1" value="1">
+                    <input type="number" name="${novejTitle}" id="${novejTitle}" class="item-quantity form-control col-md-3" min="1" value="1">
                     <button class="btn btn-danger" type="button">Odstraň</button>
                 </li>`;
     cartRow.innerHTML = cartRowContents;
     cartItems.append(cartRow);
     cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click',removeCartItem);
     cartRow.getElementsByClassName('item-quantity')[0].addEventListener('change', quantityChange);
+    inCart = document.querySelectorAll('input[type=number]');
 
 }
 
