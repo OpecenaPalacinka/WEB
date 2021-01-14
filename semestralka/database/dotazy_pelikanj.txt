@@ -1,0 +1,8 @@
+SELECT objednavka.id_objednavky as "ID objednávky", objednavka.datum_vytvoreni as "Datum vyzvednutí", objednavka.USER_id_user as "ID zákazníka", objednavka.REKY_id_reky as "ID řeky", objednavka.datum_vraceni as "Datum vrácení" FROM objednavka INNER JOIN user ON objednavka.USER_id_user = user.id_user AND user.id_user = 4 ORDER BY objednavka.id_objednavky;
+
+SELECT lode.typ_lode as "Typ lodě", lode.cena as "Cena lodě" FROM lode;
+
+SELECT prislusenstvi.nazev_prislusen as "Název příslušenství", prislusenstvi.cena as "Cena" FROM prislusenstvi;
+
+
+// VYLEPŠENÝ DOTAZ //* SELECT objednavka.id_objednavky as "ID objednávky", user.username AS "Username",reky.nazev AS "Jméno řeky", objednavka.datum_vytvoreni as "Datum vytvoření", objednavka.datum_vraceni as "Datum vrácení" FROM user INNER JOIN (reky INNER JOIN objednavka ON reky.id_reky = objednavka.REKY_id_reky) ON user.id_user = objednavka.USER_id_user && user.id_user = 4 ORDER BY objednavka.id_objednavky;

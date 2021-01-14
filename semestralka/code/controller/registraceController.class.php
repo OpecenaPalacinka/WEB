@@ -48,6 +48,7 @@ class registraceController
             $tplData['pravo'] = null;
         }
 
+        //Registrace nového zákazníka
         if (isset($_POST['registruj']) and isset($_POST['email']) and
             isset($_POST['password']) and isset($_POST['username']) and
             $_POST['registruj'] == "registruj"){

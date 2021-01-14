@@ -48,6 +48,7 @@ class objednavkaController implements IController {
 
         $tplData['userLogged'] = $this->user->isUserLogged();
 
+        //Pokud je uživatel přihlášený, zjistím jeho údaje pro vyplnění do objednávky
         if($tplData['userLogged']){
             $user = $this->user->getLoggedUserData();
             $tplData['pravo'] = $user['PRAVA_id_prava'];
@@ -61,6 +62,7 @@ class objednavkaController implements IController {
         $tplData['povedloSe'] = false;
         $tplData['uspech'] = "Je mi líto, ale rezervace se nezdařila";
 
+        //Získání hodnot z Ajaxu
 	    $poleHodnotZAjaxu=[];
 	    foreach ($tplData['lode'] as $lod){
 		    $lod = str_replace(' ', 'XXXX', $lod);
@@ -74,6 +76,7 @@ class objednavkaController implements IController {
 		    $poleHodnotZAjaxu[$i] = $poleHodnotZAjaxu[$i][1];
 	    }
 
+	    //Kontrola datumu objednávky
         if ($_POST['dat-vyp'] < date('Y-m-d')) {
             $tplData['povedloSe'] = false;
             $tplData['uspech'] = "Pokud nemáte stroj času, tak si prosím nerezervujte loď do minulosti.";
@@ -91,7 +94,7 @@ class objednavkaController implements IController {
             $datVyp = $_POST['dat-vyp'];
             $datVra = $_POST['dat-vra'];
             $poleRealHodnot = [];
-
+			//Převedení poleHodnot do nového poleReal, tak aby se podle klíče dalo vyhledávat v databázi
 	        foreach ($poleHodnotZAjaxu as $hodnota){
 	        	if (isset($_POST[$hodnota])){
 	        		$valueInArray = $_POST[$hodnota];
@@ -99,7 +102,7 @@ class objednavkaController implements IController {
 			        $poleRealHodnot[$hodnota] = $valueInArray;
 		        }
             }
-
+			//Čas pro ID objednávky
 	        $cas = intval(time()/10);
 
             $isRegistred = $this->db->getAUser($email);
@@ -109,6 +112,7 @@ class objednavkaController implements IController {
 
             $user = $this->db->vratUzivatele($email,$password);
 
+            //Při splnění všech podmínek, přistupujeme k rezervaci, která už nemůže skončit chybou
             if(count($user) and ($password == $user[0]['password']
                 and $firstName == $user[0]['username'])) {
                 $userID = $user[0]['id_user'];
@@ -118,7 +122,6 @@ class objednavkaController implements IController {
 		            $isLod = $this->db->getExactLodByName($key);
 		            if ($isLod != null){
 			            $this->db->pridejLod($isLod[0]['id_lod'],$cas,intval($itemForInsert));
-			            $tplData['zkouska'] = $isLod[0]['id_lod'];
 		            } else {
 			            $prislusenstvi = $this->db->getExactPrisluByName($key);
 			            $this->db->pridejPrislusenstvi($prislusenstvi[0]['id_prislusenstvi'],$cas,intval($itemForInsert));
@@ -126,7 +129,7 @@ class objednavkaController implements IController {
 	            }
 
                 $tplData['povedloSe'] = true;
-                $tplData['uspech'] = "Rezervace proběhla úspěšně.".$IDreka;
+                $tplData['uspech'] = "Rezervace proběhla úspěšně. Svoji rezervaci naleznete po přihlášení v záložce profil.";
 
             } else  {
                 $tplData['povedloSe'] = false;

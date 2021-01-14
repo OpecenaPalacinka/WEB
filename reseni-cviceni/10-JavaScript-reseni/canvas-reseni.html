@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        label { display: inline-block; margin: 5px; }
+        /*
+         * Pozor: nasledujici CSS nezmeni velikost canvasu, ale provede jeho zoom.
+         * Nasledne se tedy muze stat, ze ctverec je vykreslen jako obdelnik (pokud je jinak zoomovana jeho vyska a sirka).
+         * Velikost samotneho canvasu urcuji pouze atributy width a height primo v elementu canvas.
+         */
+        /* canvas { width: 200px; height: 200px;} */
+    </style>
+</head>
+<body>
+<div id="control">
+    <form autocomplete="off" onchange="paintInit()">
+        <label for="square_level">
+            Level čtverců:<br>
+            <input type="number" min="0" max="1000" id="square_level" value="2">
+        </label>
+        <label for="square_size">
+            Velikost hrany prvního čtverce [px]:<br>
+            <input type="number" min="0" max="1000" id="square_size" value="100">
+        </label>
+        <label for="square_ratio">
+            Poměr zvětšování hrany 1:? :<br>
+            <input type="number" min="0.05" step="0.05" max="3" id="square_ratio" value="2">
+        </label>
+        <br>
+        <label for="canvas_width">
+            Šířka canvasu [px]:<br>
+            <input type="number" min="0" max="10000" id="canvas_width" value="500">
+        </label>
+        <label for="canvas_height">
+            Výška canvasu [px]:<br>
+            <input type="number" min="0" max="10000" id="canvas_height" value="500">
+        </label>
+        <button type="button" onclick="paintInit()">Vykreslit obrázek</button>
+    </form>
+</div>
+
+<div>
+    <canvas id="my_canvas" width="500" height="300" style="border: 2px solid gray;"></canvas>
+</div>
+
+<table id="histogram" border="1" style="display: inline-block"></table>
+
+<script>
+
+    // ziskani HTML elementu
+    var sqLevelElem = document.getElementById("square_level");
+    var sqSizeElem = document.getElementById("square_size");
+    var sqRatioElem = document.getElementById("square_ratio");
+    var cvWidthElem = document.getElementById("canvas_width");
+    var cvHeightElem = document.getElementById("canvas_height");
+    var canvasElem = document.getElementById("my_canvas");
+
+    // ziskam obsah canvasu, do ktereho lze kreslit
+    var canvas = canvasElem.getContext("2d");
+
+    // vytvoreni promennych v globalnim kontextu
+    var sqSize = null;
+    var sqLevel = null;
+    var sqRation = null;
+    var cvWidth = null;
+    var cvHeight = null;
+
+    // vykresleni okamzite po nacteni stranky
+    paintInit();
+
+
+    /**
+     * Inicializace vykresleni.
+     */
+    function paintInit(){
+        // ziskam soucasne nastaveni
+        sqSize = Number(sqSizeElem.value);
+        sqLevel = Number(sqLevelElem.value);
+        sqRation = Number(sqRatioElem.value);
+        cvWidth = Number(cvWidthElem.value);
+        cvHeight = Number(cvHeightElem.value);
+
+        // nastavim canvasu rozmery
+        canvasElem.width = cvWidth;
+        canvasElem.height = cvHeight;
+        //console.log(canvasElem.width, canvasElem.height);
+
+        // vymazu canvas v plne sirce
+        canvas.clearRect(0, 0, canvasElem.width, canvasElem.height);
+        // urcim barvu vyplne pri kresleni
+        canvas.fillStyle = "rgba(60,102,255,0.5)";
+        // vykresleni ctverce 100x100 px, napr. pro overeni spravnych rozmeru canvasu pri zoomu
+        //-->// canvas.fillRect(10, 10, 100, 100);
+
+        // urceni vychoziho bodu pro kresleni prvniho ctverce - zacinam od leveho horniho rohu
+        var initX = canvasElem.width/2 - sqSize/2;
+        var initY = canvasElem.height/2 - sqSize/2;
+
+        // spusteni vykresleni
+        paintSquare("", initX, initY, sqSize, 0);
+
+        // vypocet histogramu
+        createHistogram();
+    }
+
+    /**
+     * Rekurzivni vykresleni ctvercu.
+     * @param startType string  Typ ci pozice ctverce - tl, tr, bl, br (tj. bottom right).
+     * @param startX integer    Pocatek X (levy horni roh vykreslovaneho ctverce).
+     * @param startY integer    Pocatek Y (levy horni roh vykreslovaneho ctverce).
+     * @param size float        Delka hrany ctverce.
+     * @param level integer     Level/poradi vykresleni pro ukonceni rekurze.
+     */
+    function paintSquare(startType, startX, startY, size, level){
+        // vykreslim ctverec v dane pozici
+        canvas.fillRect(startX, startY, size, size);
+        
+        // pokud level dosahl zvoleneho levelu, tak koncim
+        if(level === sqLevel){
+            return;
+        }
+
+        // redukce velikosti - zmenseni dle pomeru
+        var newSize = size / sqRation;
+        
+        //// rekurzi vykreslim ctverce v rozich, vyjma aktualniho
+        // ctverec vlevo nahore "tl" - nebude, pokud aktualnim typem je "br"
+        if(startType !== "br"){
+            // musim se posunout o cele nove delky zpet (kreslim od shora dolu)
+            paintSquare("tl", startX-newSize, startY-newSize, newSize, level+1);
+        }
+        // ctverec vpravo nahore "tr"  - nebude, pokud aktualnim typem je "bl"
+        if(startType !== "bl"){
+            // X posouvam o delku rodice
+            // Y posouvam o novou delku zpet
+            paintSquare("tr", (startX+size), startY-newSize, newSize, level+1);
+        }
+        // ctverec vlevo dole "bl" - nebude, pokud aktualnim typem je "tr"
+        if(startType !== "tr"){
+            // X posouvam o novou delku zpet
+            // Y posouvam o delku rodice
+            paintSquare("bl", startX-newSize, startY+size, newSize, level+1);
+        }
+        // ctverec vpravo dole "br" - nebude, pokud aktualnim typem je "tl"
+        if(startType !== "tl"){
+            // X posouvam o delku rodice
+            // Y posouvam o delku rodice
+            paintSquare("br", startX+size, startY+size, newSize, level+1);
+        }
+    }
+
+    /**
+     * Spocita barevny histogram pro jednotlive pixely.
+     */
+    function createHistogram(){
+        var hist = [];
+        var tmpCol = null, tmpKey = null;
+
+        /*
+        //// V1: postupne ziskavani pixelu canvasu - velmi pomale
+        var startT = performance.now();
+        // pres sloupce a pres radky
+        for (x = 0; x < cvWidth; x++) {
+            for (y = 0; y < cvWidth; y++) {
+                // ziskam barvu
+                tmpCol = canvas.getImageData(x, y, 1, 1).data;
+                // slozim klic - beru alfa z barvy a zarovnam na 0.001 - 0.255
+                tmpKey = "a" + (tmpCol[3] / 1000);
+                // zapocitam do histogramu
+                if (hist.hasOwnProperty(tmpKey)) {
+                    hist[tmpKey] += 1;
+                } else {
+                    hist[tmpKey] = 1;
+                }
+            }
+        }
+        console.log("Histogram:: "+(performance.now() - startT)+"ms.");
+        // seradim klice a vypisu
+        var tmp = "";
+        Object.keys(hist).sort().forEach(function (key) {
+            //console.log(key, hist[key]);
+            tmp += "<tr><td>"+key+"</td><td>"+hist[key]+"</td></tr>";
+        })
+        document.getElementById("histogram").innerHTML = tmp;
+        */
+
+
+        //// V2: ziskani barev celeho canvasu a prace s vysledkem - rychle
+        startT = performance.now();
+        hist = [];
+        var tmpdata = canvas.getImageData(0, 0, cvWidth, cvHeight).data
+        for(i = 3; i < tmpdata.length; i += 4){
+            // slozim klic - beru alfa z barvy a zarovnam na 0.001 - 0.255
+            tmpKey = "a" + (tmpdata[i] / 1000);
+            // zapocitam do histogramu
+            if (hist.hasOwnProperty(tmpKey)) {
+                hist[tmpKey] += 1;
+            } else {
+                hist[tmpKey] = 1;
+            }
+        }
+        console.log("Histogram: "+(performance.now() - startT)+"ms.");
+        // seradim klice a vypisu
+        tmp = "";
+        Object.keys(hist).sort().forEach(function (key) {
+            //console.log(key, hist[key]);
+            tmp += "<tr><td>"+key+"</td><td>"+hist[key]+"</td></tr>";
+        })
+        document.getElementById("histogram").innerHTML = tmp;
+
+    }
+
+</script>
+
+</body>
+</html>

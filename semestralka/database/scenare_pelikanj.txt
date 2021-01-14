@@ -1,0 +1,8 @@
+DELETE FROM user WHERE user.id_user = 5;
+
+UPDATE user SET id_user = '6' WHERE user.id_user = 4;
+
+INSERT INTO `objednavka` (`id_objednavky`, `datum_vytvoreni`, `USER_id_user`, `REKY_id_reky`, `schvalena`, `datum_vraceni`) VALUES ('10', '2020-12-23', '3', '1', '0', '2020-12-25');
+
+INSERT INTO objednavka (objednavka.id_objednavky, objednavka.datum_vytvoreni, objednavka.USER_id_user,objednavka. REKY_id_reky, objednavka.schvalena,objednavka.datum_vraceni)
+VALUES ('15', '2828-10-25', (SELECT user.id_user FROM user WHERE user.email = 'spravce@email.cz'), '2', '0', '2020-11-02');

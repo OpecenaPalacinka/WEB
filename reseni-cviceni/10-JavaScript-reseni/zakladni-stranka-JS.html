@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>KIV/WEB ukázky JS</title>
+        <style>
+            table { border-collapse: collapse; }
+            table, th, td { border: 1px solid black; }
+            div { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid gray; }
+            label { margin-bottom: 5px; display: block; }
+            .barva {color:red; }
+            .muj_obr { width:30%; float:left; margin:10px; }
+            #vysledek { font-weight: bold; }
+        </style>
+        <!-- dostupne obrazky:
+            https://www.kiv.zcu.cz/site/documents/verejne/katedra/dokumenty/kiv-logo-cernobile.png
+            https://www.kiv.zcu.cz/site/documents/verejne/katedra/dokumenty/dcse-logo-barevne.png
+        -->
+    </head>
+    <body>
+        <h1>KIV/WEB ukázky JS</h1>
+        <div>
+            <h2>Text s odkazy</h2>
+            <p>Lorem ipsum dolor sit amet, <a href="">consectetuer adipiscing</a> elit. Aenean placerat. Sed ac dolor sit amet purus malesuada congue. Mauris dictum facilisis augue. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Integer tempor. Integer imperdiet lectus quis justo. Maecenas libero. Aenean id metus id velit ullamcorper pulvinar. Praesent dapibus. Nunc dapibus tortor vel mi dapibus sollicitudin. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Duis viverra diam non justo. Integer imperdiet lectus quis justo. Mauris metus.</p>
+            <p>Morbi scelerisque luctus velit. Integer <a href="http://kiv.zcu.cz">prvni</a> rutrum, orci vestibulum <a href="">ullamcorper ultricies</a>, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Duis condimentum augue id magna semper rutrum. Integer tempor. <a href="http://kiv.zcu.cz" class="nene ma-titulek">s titulkem</a>Pellentesque <span class="ma-titulek">není odkazem</span>habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec iaculis gravida nulla. Suspendisse nisl. Aliquam id dolor. Nullam rhoncus aliquam metus. Suspendisse sagittis ultrices augue. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Ut tempus purus at lorem. Phasellus faucibus molestie nisl. Etiam dictum tincidunt diam.</p>
+            <img id="obrazek" class="muj_obr" alt="Logo KIV"
+                 src="https://www.kiv.zcu.cz/site/documents/verejne/katedra/dokumenty/kiv-logo-barevne.png"
+                 onclick="zmenObrazek(this)"
+            >
+            <p>Ut enim ad minima veniam, quis <a href="http://kiv.zcu.cz">druhy</a> nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Morbi <a href="http://kiv.zcu.cz">treti</a> leo mi, nonummy eget tristique non, rhoncus non leo. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Praesent in mauris eu tortor porttitor accumsan. Etiam bibendum elit eget erat. Integer tempor. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Mauris elementum mauris vitae tortor. Vivamus ac leo pretium faucibus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. In enim a arcu imperdiet malesuada. Phasellus rhoncus.</p>                        
+        </div>
+        
+        <div>
+            <h2>Součet čísel</h2>
+            <label for="muj_vstup_a">
+                A = <input type="number" id="muj_vstup_a" value="1">
+            </label>
+            <label for="muj_vstup_b">
+                B = <input type="number" id="muj_vstup_b" value="1">
+            </label>
+            <button onclick="soucet()">Sečíst</button><br>
+            <br>
+            Výsledek součtu: A + B = <span id="vysledek">?</span>
+        </div>
+        
+        <div>
+            <h2>Obarvení tabulky</h2>
+            <table>
+                <tr><th>ID</th><th>Druh</th></tr>
+                <tr><td>1</td><td>Šimpanz bonobo</td></tr>
+                <tr><td>2</td><td>Šimpanz čego</td></tr>
+                <tr><td>3</td><td>Šimpanz hornoguinejský</td></tr>
+                <tr><td>4</td><td>Šimpanz nigerijský</td></tr>
+                <tr><td>5</td><td>Šimpanz učenlivý</td></tr>
+                <tr><td>6</td><td>Šimpanz východní</td></tr>
+            </table>
+        </div>
+
+        <!-- sekce pro JavaScript -->
+        <script>
+            // vypis do konzole
+            console.log("JavaScript");
+
+            //// 1. //////////
+            function soucet() {
+                var a = document.getElementById("muj_vstup_a").value;
+                var b = document.getElementById("muj_vstup_b").value;
+                document.getElementById("vysledek").innerHTML = Number(a) + Number(b);
+            }
+
+
+            //// 2.A //////////
+            //document.getElementsByTagName("h1")[0].innerHTML = "Stránka s JS";
+            //document.getElementsByTagName("h1")[0].className = "barva";
+
+            //// 2.B //////////
+            // funkce pro zmenu
+            function upravNadpis(){
+                document.getElementsByTagName("h1")[0].innerHTML = "Stránka s JS";
+                document.getElementsByTagName("h1")[0].className = "barva";
+            }
+            // do onload priradim nazev funkce
+            document.body.onload = upravNadpis;
+
+
+            //// 3. //////////
+            var odkazy = document.getElementsByTagName("a");
+            var pocet = 1;
+            for(var i=0; i<odkazy.length; i++){
+                // console.log(odkazy[i].href);
+                if(odkazy[i].href == "http://kiv.zcu.cz/" && odkazy[i].className.indexOf("ma-titulek") < 0 ){
+                    // pridam cislo do obsahu
+                    odkazy[i].innerHTML = pocet+" "+odkazy[i].innerHTML;
+                    odkazy[i].className = "barva";
+                    pocet++;
+                }
+            }
+
+
+            //// 4. //////////
+            var obrCount = 0;
+            function zmenObrazek(elementImg){
+                obrCount++;
+                if(obrCount%2 == 0){
+                    elementImg.src = "https://www.kiv.zcu.cz/site/documents/verejne/katedra/dokumenty/kiv-logo-cernobile.png";
+                } else {
+                    elementImg.src = "https://www.kiv.zcu.cz/site/documents/verejne/katedra/dokumenty/dcse-logo-barevne.png";
+                }
+            }
+
+        </script>
+
+    </body>
+</html>

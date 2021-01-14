@@ -37,6 +37,7 @@ class objednavkyController implements IController {
 
         $objednavky = $this->db->getAllObjednavky();
 
+        //Převedu objednávky tak, abych místo ID měl názvy.
         foreach ($objednavky as $key => $objednavka){
             $objednavky[$key]['REKY_id_reky'] = $this->db->getExactRekaById($objednavka['REKY_id_reky'])['nazev'];
             $objednavky[$key]['USER_id_user'] = $this->db->getExactUserById($objednavka['USER_id_user'])['username'];

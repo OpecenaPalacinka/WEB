@@ -67,6 +67,7 @@ class pridaniProduktuController implements IController {
 			$tplData['pravo'] = null;
 		}
 
+		//Přidání nového zaměstnance
 		if (isset($_POST['registruj']) and isset($_POST['email']) and
 			isset($_POST['password']) and isset($_POST['username']) and
 			$_POST['registruj'] == "registruj"){
@@ -84,6 +85,7 @@ class pridaniProduktuController implements IController {
 			}
 		}
 
+		// Přidání nové řeky
 		if (isset($_POST['pridejReku']) and isset($_POST['nazevReky']) and
 			$_POST['pridejReku'] == "pridejReku"){
 
@@ -100,6 +102,7 @@ class pridaniProduktuController implements IController {
 			}
 		}
 
+		//Přidání nové lodi
 		if (isset($_POST['pridejLod']) and isset($_POST['nazevLodi']) and
 			isset($_POST['cenaLodi']) and $_POST['pridejLod'] == "pridejLod"){
 
@@ -116,6 +119,7 @@ class pridaniProduktuController implements IController {
 			}
 		}
 
+		// Přidání nového příslušenství
 		if (isset($_POST['pridejPrislu']) and isset($_POST['nazevPrislu']) and
 			isset($_POST['cenaPrislu']) and $_POST['pridejPrislu'] == "pridejPrislu"){
 

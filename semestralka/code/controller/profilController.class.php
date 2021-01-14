@@ -56,6 +56,7 @@ class profilController implements IController {
 
 		$objednavky = $this->db->getExactObjByUserId($user['id_user']);
 
+		//Převedení objednávek z ID udajů na názvy
 		foreach ($objednavky as $key => $objednavka){
 			$objednavky[$key]['REKY_id_reky'] = $this->db->getExactRekaById($objednavka['REKY_id_reky'])['nazev'];
 			$objednavky[$key]['USER_id_user'] = $this->db->getExactUserById($objednavka['USER_id_user'])['username'];

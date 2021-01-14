@@ -9,7 +9,6 @@ $tplHeaders->createHeader("", $tplData['title']);
 <script src="view/cart.js" async></script>
 <body>
 <?php
-var_dump($tplData['zkouska']);
 if (!$tplData['userLogged']) {
 	$tplHeaders->createNav($tplData['pravo']);
 } else {
