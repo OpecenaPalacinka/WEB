@@ -91,8 +91,8 @@ const WEB_PAGES = array(
         "title" => "Ceník",
 
         //// kontroler
-        "file_name" => "CenikController.class.php",
-        "class_name" => "CenikController",
+        "file_name" => "cenikController.class.php",
+        "class_name" => "cenikController",
     ),
     //// KONEC: Uvodni stranka ////
 
